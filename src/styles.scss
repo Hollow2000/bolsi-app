@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    color-scheme: light dark;
+
+    --background-color: light-dark(#F8FAFC, #111922);
+    --background-inputs-color: light-dark(#E8EDF2, #243347);
+
+    --primary-color: light-dark(#126cbf,#1A78E5);
+    --secundary-color: light-dark(#3AB795,#248169);
+    --contrast-color: light-dark(#F4C430,#c99f22);
+
+    --error-color: light-dark(#EF4444,#F87171);
+    --text-color: light-dark(#0D141C,#FFFFFF);
+    --placeholder-color: light-dark(#4F7096,#94ABC7)
+
+}
+
+html {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
