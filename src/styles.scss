@@ -1,55 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    color-scheme: light dark;
+  color-scheme: light dark;
 
-    --background-color: light-dark(#F8FAFC, #111922);
-    --background-inputs-color: light-dark(#E8EDF2, #243347);
+  --background-color: light-dark(#F8FAFC, #111922);
+  --background-inputs-color: light-dark(#E8EDF2, #243347);
 
-    --primary-color: light-dark(#126cbf,#1A78E5);
-    --secundary-color: light-dark(#3AB795,#248169);
-    --contrast-color: light-dark(#F4C430,#c99f22);
+  --primary-color: light-dark(#126cbf, #1A78E5);
+  --secundary-color: light-dark(#3AB795, #248169);
+  --contrast-color: light-dark(#F4C430, #c99f22);
 
-    --error-color: light-dark(#EF4444,#F87171);
-    --text-color: light-dark(#0D141C,#FFFFFF);
-    --placeholder-color: light-dark(#4F7096,#94ABC7)
+  --primary-hover-color: light-dark(#3d83c5, #63a0e6);
 
+  --error-color: light-dark(#EF4444, #F87171);
+  --text-color: light-dark(#1E293B, #FFFFFF);
+  --placeholder-color: light-dark(#4F7096, #94ABC7);
+
+  --max-width: 1200px;
 }
 
 html {
-    background-color: var(--background-color);
-    color: var(--text-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .title-xlarge {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: xx-large;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: xx-large;
+  margin: 0;
 }
+
 .title-large {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: x-large;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: x-large;
+  margin: 0;
 }
+
 .title-medium {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: large;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: large;
+  margin: 0;
 }
+
 .title-small {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: medium;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: medium;
+  margin: 0;
 }
+
 .title-xsmall {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: small;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: small;
+  margin: 0;
 }
 
 .text-xxlarge {
@@ -101,7 +113,7 @@ html {
 }
 
 .error {
-    border-color: var(--error-color);
+  border-color: var(--error-color);
 }
 
 .label-error {
@@ -111,4 +123,29 @@ html {
   font-style: normal;
   font-size: small;
   color: var(--error-color);
+}
+
+.btn-primary {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.3s ease;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--primary-hover-color);
+  }
 }
