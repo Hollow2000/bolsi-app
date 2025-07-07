@@ -1,4 +1,6 @@
 export const Paths = {
+    WELCOME: '',
+
     MAIN: 'main',
     DASH_BOARD: 'dashBoard',
     INCOME: 'incomes',
