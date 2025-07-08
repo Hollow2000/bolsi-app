@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   async ngOnInit() {
     if (!this.router.url.includes(Paths.INCOME) && 
     (await this.incomeService.getIcomeList()).length == 0) {
-      this.router.navigateByUrl(`${Paths.MAIN}/${Paths.INCOME}`);
+      this.router.navigate([`${Paths.MAIN}/${Paths.INCOME}`],{replaceUrl:true});
     } 
   }
 
