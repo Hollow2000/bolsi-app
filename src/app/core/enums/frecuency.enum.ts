@@ -1,7 +1,7 @@
 export enum Frecuency {
-    Unique,
-    Monthly,
-    Biweekly,
-    Weekly,
-    Daily
+    Unique = 'Unico',
+    Monthly = 'Mensual',
+    Biweekly = 'Quincenal',
+    Weekly = 'Semanal',
+    Daily = 'Diario'
 }

@@ -5,16 +5,13 @@ export interface Income {
     id?: number;
     name: string;
     amountEstimated: number;
-    amountReal?: number;
     frecuency: Frecuency;
-    date?: Date;
 }
 
 export interface Pocket {
     id?: number;
     name: string;
     percentEstimated: number;
-    percentUsed: number;
 }
 
 export interface PaymentMethod {
@@ -22,8 +19,8 @@ export interface PaymentMethod {
     alias: string;
     type: PaymentMethodType;
     balance?: number; // Efectivo y tarjetas de debito
-    statementDate?: Date; // Tarjetas de credito
-    limitPaymentDate?: Date;// Tarjetas de credito
-    amountCredit?: number;// Tarjetas de credito
-    amountUsed?: number;// Tarjetas de credito
+    statementDay?: number;  // Tarjetas de credito: Fecha de corte
+    daysToPay?: number;  // Tarjetas de credito: Cuantos dias despues de la fecha de corte para pagar
+    amountCreditLimit?: number;  // Tarjetas de credito: Limite de credito
+    amountCreditAvailable?: number;// Tarjetas de credito: Credito disponible a la fecha de corte
 }

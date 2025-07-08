@@ -1,5 +1,5 @@
 export enum PaymentMethodType {
-    Cash,
-    Debit,
-    Credit
+    Cash = 'Efectivo',
+    Debit = 'Tarjeta de debito',
+    Credit = 'Tarjeta de credito'
 }

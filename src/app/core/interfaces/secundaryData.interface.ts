@@ -1,28 +1,32 @@
 import { Frecuency } from "../enums/frecuency.enum";
+import { MovementType } from "../enums/movement-type.enum";
 
 export interface Bill {
     id?: number;
     description: string;
     amountEstimated: number;
-    amountReal: number;
     frecuency: Frecuency;
-    pocketid?: number;
+    pocketId: number;
 }
 
-export interface StatementPayment {
+export interface MovementBase {
     id?: number;
     amount: number;
-    paymentMethodid?: number;
     date: Date;
+    paymentMethodId: number;
+    type: MovementType;
 }
 
-export interface Movement {
-    id?: number;
+export interface SpenMovement extends MovementBase {
+    type: MovementType.Spen;
     concept: string;
-    amount: number;
-    date: Date;
-    paymentMethodid?: number;
-    pocketid?: number;
+    pocketId: number;
 }
 
-export interface TemplateMovement extends Omit<Movement,'date'>{}
+export interface IncomeMovement extends MovementBase {
+    type: MovementType.Income;
+}
+
+export type Movement = SpenMovement | IncomeMovement;
+
+export interface TemplateMovement extends Omit<SpenMovement,'date'>{}
