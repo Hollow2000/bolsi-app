@@ -1,1 +1,22 @@
-<p>income works!</p>
+@if (incomes$ | async; as incomes) {
+<div>
+    <h2>Ingresos totales: {{incomes.incomeTotal}}</h2>
+</div>
+<div>
+    @for (income of incomes.list; track income.id) {
+    <div class="card">
+        <h3>{{income.name}}</h3>
+        <span>{{income.frecuency}}</span>
+        <span>{{income.amountEstimated}}</span>
+    </div>
+    }@empty {
+    <div>
+        <h2>Registra al menos un ingreso.</h2>
+    </div>
+    }
+</div>
+}@else {
+<div>
+    <h1>Error al obtener tus ingresos.</h1>
+</div>
+}

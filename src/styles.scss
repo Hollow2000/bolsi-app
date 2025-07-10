@@ -9,9 +9,11 @@
   --primary-color: light-dark(#126cbf, #1A78E5);
   --secundary-color: light-dark(#3AB795, #248169);
   --contrast-color: light-dark(#F4C430, #c99f22);
-
+  
   --primary-hover-color: light-dark(#3d83c5, #63a0e6);
 
+  --primary-shadow-color: light-dark(#126bbf4f, #1a79e550);
+  
   --error-color: light-dark(#EF4444, #F87171);
   --text-color: light-dark(#1E293B, #FFFFFF);
   --placeholder-color: light-dark(#4F7096, #94ABC7);
@@ -148,4 +150,11 @@ html {
   .btn-primary:hover {
     background-color: var(--primary-hover-color);
   }
+}
+
+.card {
+  background: var(--background-inputs-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px var(--primary-shadow-color);
 }

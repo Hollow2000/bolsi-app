@@ -1,9 +1,6 @@
 import Dexie, { Table } from 'dexie';
 import { Income, PaymentMethod, Pocket } from '../interfaces/primaryData.interface';
 import { Bill, Movement, TemplateMovement } from '../interfaces/secundaryData.interface';
-import { Frecuency } from '../enums/frecuency.enum';
-import { PaymentMethodType } from '../enums/payment-method-type.enum';
-import { MovementType } from '../enums/movement-type.enum';
 
 export class AppDB extends Dexie {
     pocketTable!: Table<Pocket, number>;
