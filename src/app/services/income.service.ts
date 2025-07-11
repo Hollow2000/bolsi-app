@@ -12,12 +12,18 @@ export class IncomeService extends BaseService<Income> {
   protected override table = db.incomeTable;
   getIncomesViewDataObservable(): Observable<IncomeViewData> {
     return liveQuery(async () => {
-      const list = await db.incomeTable.toArray();
+      const list = await this.table.toArray();
       let incomeTotal = 0;
       list.forEach(income => {
         incomeTotal += income.amountEstimated;
       });
       return {incomeTotal, list};
     });
+  }
+
+  updateIncomes(inocmes: Income[]) {
+    return this.table.bulkUpdate(inocmes.map(income => {
+      return {changes: income, key: income.id!}
+    }));
   }
 }

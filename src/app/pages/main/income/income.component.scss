@@ -1,0 +1,24 @@
+.form-add {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    #name {
+        flex: 2;
+    }
+    #amount {
+        flex: 1;
+    }
+    select {
+        flex: 1;
+    }
+}
+
+.buttons-add {
+    display: flex;
+    gap: 1rem;
+    button {
+        flex: 1;
+    }
+}

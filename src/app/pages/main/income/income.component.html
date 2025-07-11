@@ -14,6 +14,29 @@
         <h2>Registra al menos un ingreso.</h2>
     </div>
     }
+    <app-add-element label="Agregar nuevo ingreso" #addElement>
+        <div class="card">
+            <div class="form-add">
+                <input type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto">
+                <input type="tel" name="amount" id="amount" placeholder="Cantidad">
+                <select name="frecuency" id="frecuency">
+                    @for (frecuency of frecuencySelect; track $index) {
+                    <option value="frecuency">{{frecuency}}</option>
+                    }
+                </select>
+            </div>
+            <div class="buttons-add">
+                <button (click)="$event.preventDefault(); addElement.writing = false">
+                    Cancelar
+                    <img width="25" height="25" src="https://img.icons8.com/fluency/25/cancel.png" alt="cancel" />
+                </button>
+                <button class="btn-primary">
+                    Confirmar
+                    <img width="25" height="25" src="https://img.icons8.com/fluency/25/checked.png" alt="checked" />
+                </button>
+            </div>
+        </div>
+    </app-add-element>
 </div>
 }@else {
 <div>
