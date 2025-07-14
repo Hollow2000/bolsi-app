@@ -27,12 +27,14 @@ section .title-large {
 
 .btn-primary {
   max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: 1rem 2rem;
 }
 
 footer {
   text-align: center;
   font-size: 0.85rem;
-  color: var(--placeholder-color);
+  color: var(--text-secundary-color);
   padding: 2rem 1rem;
 }
 
