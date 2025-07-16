@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      width: 95%;
+      width: 100%;
       padding: 1rem;
       border: none;
       cursor: pointer;

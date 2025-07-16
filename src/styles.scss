@@ -174,3 +174,16 @@ html {
   border: none;
   border-radius: 20px;
 }
+
+.input.ng-invalid.ng-touched,
+.input.ng-invalid.ng-dirty,
+.custom-select:invalid.ng-invalid.ng-touched,
+.custom-select:invalid.ng-invalid.ng-dirty {
+  border: 2px solid var(--error-color);
+  color: var(--error-color);
+}
+
+.input.ng-invalid.ng-touched::placeholder,
+.input.ng-invalid.ng-dirty::placeholder {
+  color: var(--error-color);
+}

@@ -1,3 +1,42 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+    width: 95%;
+}
+
+@media (min-width: 600px) {
+  .content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card.income {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
 app-add-element .card {
     display: flex;
     flex-direction: column;
@@ -8,6 +47,7 @@ app-add-element .card {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+
     #name {
         flex: 2;
     }
@@ -15,6 +55,7 @@ app-add-element .card {
     #amount {
         flex: 1;
     }
+
     #frecuency {
         flex: 1;
     }

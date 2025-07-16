@@ -1,33 +1,32 @@
 @if (incomes$ | async; as incomes) {
-<div>
-    <h2>Ingresos totales: {{incomes.incomeTotal}}</h2>
+<div class="header">
+    <h2 class="title-large">Ingreso mensual:</h2>
+    <h2 class="title-large">{{incomes.incomeTotal | currency}}</h2>
 </div>
-<div>
+<div class="content">
     @for (income of incomes.list; track income.id) {
-    <div class="card">
-        <h3>{{income.name}}</h3>
-        <span>{{income.frecuency}}</span>
-        <span>{{income.amountEstimated}}</span>
+    <div class="card income">
+        <h3 class="title-small">{{income.name}}</h3>
+        <span class="text-large">{{income.amountEstimated | currency}}</span>
     </div>
     }@empty {
     <div>
-        <h2>Registra al menos un ingreso.</h2>
+        <h2>Registra al menos un ingreso mensual.</h2>
     </div>
     }
-    <app-add-element label="Agregar nuevo ingreso" #addElement>
+    <app-add-element label="Agregar ingreso mensual" #addElement>
         <div class="card">
-            <h3 class="title-small" >Nuevo ingreso</h3>
+            <h3 class="title-small">Nuevo ingreso menusal</h3>
             <div class="form-add">
                 <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto" [formControl]="newIncomeForm.controls.name">
-                <input class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad" [formControl]="newIncomeForm.controls.amountEstimated">
-                <app-custom-select [options]="frecuencySelect" placeHolder="Frecuencia" id="frecuency" [formControlApp]="newIncomeForm.controls.frecuency"/>
+                <input class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad" [formControl]="newIncomeForm.controls.amountEstimated" appCurrency>
             </div>
             <div class="buttons-add">
                 <button class="btn-danger" (click)="$event.preventDefault(); addElement.writing = false">
                     Cancelar
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDUlEQVR4nOWVTQrCMBBGXeoV3PlzFdET9Aa6FxVx5y3UpT/n0EOpaHXxZGCEEKYxbUVB3yZkQvMY8iWtVP4KoAb0gAEw1bEr9Xds3gZ2wBkbqW+BVlHBBLgRRwqM8wpWFGOZp4MyjF4Jmtp6GVI5y5BEDtlnD8yBu1e/a13WfTahmFopmut64ohkTLQuIp+TGW/NvYW7YQJcvLnf4ZOOJZELRoSoHiEQ+pZkRpiLI6jrPMTsa510P3EmNU3FO9J1BKpZMZbHzufw4p4cjG/WpkAlDeBK+RvfypSoaFxSMgwKHNGyoGARJXBEoxyPZRrdQcarvMlIHVpfy1kWEniyquReLpj+42WUuR3Tn+UBjj4C5PDAQzQAAAAASUVORK5CYII=" alt="cancel">
                 </button>
-                <button class="btn-success" (click)="submitNew()">
+                <button class="btn-success" (click)="submitNew(addElement)">
                     Confirmar
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIElEQVR4nOWVMW7CQBBFKVKAEMoZgjkJCgoXgTQ0yEQRJ4GUkByBA6SAc3CDNICEKXjRSFNsMbuMbarkSZbtteWn0fwdNxr/CqAFDIEx8K7nF1m/x8d7wBdwwkbWP4GsquANuOCjAGZlBR9UY1mmgjrktwRdLb0OhfQyJZEm34N1KqaxFKXYAQNgH6wdzXhr7suyBTp6hBJhYEleK1TQAdrAt/F8bEnmxos/wAa4JiqQa4u5JZFRYeYemAQij0AYeXsiQegHoq1TEO1JS1OREj04BQegGYuxDDsiomfg0SEQVqZAJVlix1+d++gMPEUlKppRj2lSEIiWFQULlyAQ5SWGZeGuIDKV15HUoeurmz1wypo6BEf6j5ez3Nsx/bP8AusIKeBSVJ0yAAAAAElFTkSuQmCC" alt="ok--v1">
                 </button>

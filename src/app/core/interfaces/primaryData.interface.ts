@@ -5,7 +5,6 @@ export interface Income {
     id?: number;
     name: string;
     amountEstimated: number;
-    frecuency: Frecuency;
 }
 
 export interface Pocket {
