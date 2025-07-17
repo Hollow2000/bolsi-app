@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, output } from '@angular/core';
 
 @Component({
   selector: 'app-add-element',
@@ -50,5 +50,20 @@ import { Component, Input } from '@angular/core';
 })
 export class AddElementComponent {
   @Input({ required: true }) label: string = '';
+  onClose = output();
   writing = false;
+
+  constructor(private readonly elRef: ElementRef) {
+
+  }
+
+  @HostListener('window:touchstart',['$event'])
+  @HostListener('window:mousedown',['$event'])
+  @HostListener('window:scroll', ['$event'])
+  outInteraction($event: Event) {
+    if (this.writing && !this.elRef.nativeElement.contains($event.target)) {
+      this.writing = false;
+      this.onClose.emit();
+    }
+  }
 }

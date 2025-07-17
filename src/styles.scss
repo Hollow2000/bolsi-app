@@ -7,7 +7,7 @@
   --background-card-color: light-dark(#E8EDF2, #243347);
 
   --primary-color: light-dark(#126cbf, #1A78E5);
-  --secundary-color: light-dark(#3AB795, #248169);
+  --success-color: light-dark(#3AB795, #248169);
   --contrast-color: light-dark(#F4C430, #c99f22);
   --danger-color: light-dark(#F87171, #EF4444);
 
@@ -148,7 +148,7 @@ html {
   }
   &-success {
     @extend .btn;
-    background-color: var(--secundary-color);
+    background-color: var(--success-color);
   }
   &-danger {
     @extend .btn;
