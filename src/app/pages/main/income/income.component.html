@@ -18,13 +18,11 @@
             <div class="buttons-add">
                 <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()">
                     Cancelar
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDUlEQVR4nOWVTQrCMBBGXeoV3PlzFdET9Aa6FxVx5y3UpT/n0EOpaHXxZGCEEKYxbUVB3yZkQvMY8iWtVP4KoAb0gAEw1bEr9Xds3gZ2wBkbqW+BVlHBBLgRRwqM8wpWFGOZp4MyjF4Jmtp6GVI5y5BEDtlnD8yBu1e/a13WfTahmFopmut64ohkTLQuIp+TGW/NvYW7YQJcvLnf4ZOOJZELRoSoHiEQ+pZkRpiLI6jrPMTsa510P3EmNU3FO9J1BKpZMZbHzufw4p4cjG/WpkAlDeBK+RvfypSoaFxSMgwKHNGyoGARJXBEoxyPZRrdQcarvMlIHVpfy1kWEniyquReLpj+42WUuR3Tn+UBjj4C5PDAQzQAAAAASUVORK5CYII="
-                        alt="cancel">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">cancel</mat-icon>
                 </button>
                 <button class="btn-success" (click)="$event.preventDefault(); submitEdit(income.id!)">
                     Confirmar
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIElEQVR4nOWVMW7CQBBFKVKAEMoZgjkJCgoXgTQ0yEQRJ4GUkByBA6SAc3CDNICEKXjRSFNsMbuMbarkSZbtteWn0fwdNxr/CqAFDIEx8K7nF1m/x8d7wBdwwkbWP4GsquANuOCjAGZlBR9UY1mmgjrktwRdLb0OhfQyJZEm34N1KqaxFKXYAQNgH6wdzXhr7suyBTp6hBJhYEleK1TQAdrAt/F8bEnmxos/wAa4JiqQa4u5JZFRYeYemAQij0AYeXsiQegHoq1TEO1JS1OREj04BQegGYuxDDsiomfg0SEQVqZAJVlix1+d++gMPEUlKppRj2lSEIiWFQULlyAQ5SWGZeGuIDKV15HUoeurmz1wypo6BEf6j5ez3Nsx/bP8AusIKeBSVJ0yAAAAAElFTkSuQmCC"
-                        alt="ok--v1">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">check_circle</mat-icon>
                 </button>
             </div>
             }@else {
@@ -34,12 +32,10 @@
             </div>
             <div class="actions">
                 <button class="btn-primary" id="edit" (click)="$event.preventDefault(); openEdit(income,item);">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlklEQVR4nN3QwQ0BQRSA4b1LNkQPytgCtEEdwk1DG+IgcVkXDShBNOD2yTIbIlxm5oD/OJP5Mu8VxV+GEhucMc6BNR5dktA3YNspFpp8QNcx2D48XoazHnYBLmOxrvnTXZm6r65pypivHTDIhTU5dvYFWBv6WGXBurDIgqEKI48wQ536s23Y3w3AMBor7sAxoFU08hNdAdaXlqfru4DsAAAAAElFTkSuQmCC"
-                        alt="edit--v1">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">edit</mat-icon>
                 </button>
                 <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteIncome(income.id!);">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAv0lEQVR4nO3VsQnCQBiG4QOtxTEsxEFEyBJaaJtCdIA4gU6gTVpxAYVUacQFdALJBK8EU8kVfh8Wgr7wk+LIPc1xF8JPBvSAS/391IYJkL9MwbMispYom6+AEqjQqpr/MgVxJwtfE5ACc2NSBbnhdVWQk4kcFWRnIlsFqU+YU6YgMxOZKsjIRIYKMjCRvoJ0TaTzNtJA6t11l4AGqa90pbODHERk7yAbEVk7yERExg7SBpaRFzCPzAJoyci/EOkBLvTy1XUyaewAAAAASUVORK5CYII="
-                        alt="filled-trash">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">delete</mat-icon>
                 </button>
             </div>
             }
@@ -63,13 +59,11 @@
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
                         Cancelar
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDUlEQVR4nOWVTQrCMBBGXeoV3PlzFdET9Aa6FxVx5y3UpT/n0EOpaHXxZGCEEKYxbUVB3yZkQvMY8iWtVP4KoAb0gAEw1bEr9Xds3gZ2wBkbqW+BVlHBBLgRRwqM8wpWFGOZp4MyjF4Jmtp6GVI5y5BEDtlnD8yBu1e/a13WfTahmFopmut64ohkTLQuIp+TGW/NvYW7YQJcvLnf4ZOOJZELRoSoHiEQ+pZkRpiLI6jrPMTsa510P3EmNU3FO9J1BKpZMZbHzufw4p4cjG/WpkAlDeBK+RvfypSoaFxSMgwKHNGyoGARJXBEoxyPZRrdQcarvMlIHVpfy1kWEniyquReLpj+42WUuR3Tn+UBjj4C5PDAQzQAAAAASUVORK5CYII="
-                            alt="cancel">
+                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">cancel</mat-icon>
                     </button>
                     <button class="btn-success" (click)="$event.preventDefault(); submitNew(addElement)">
                         Confirmar
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIElEQVR4nOWVMW7CQBBFKVKAEMoZgjkJCgoXgTQ0yEQRJ4GUkByBA6SAc3CDNICEKXjRSFNsMbuMbarkSZbtteWn0fwdNxr/CqAFDIEx8K7nF1m/x8d7wBdwwkbWP4GsquANuOCjAGZlBR9UY1mmgjrktwRdLb0OhfQyJZEm34N1KqaxFKXYAQNgH6wdzXhr7suyBTp6hBJhYEleK1TQAdrAt/F8bEnmxos/wAa4JiqQa4u5JZFRYeYemAQij0AYeXsiQegHoq1TEO1JS1OREj04BQegGYuxDDsiomfg0SEQVqZAJVlix1+d++gMPEUlKppRj2lSEIiWFQULlyAQ5SWGZeGuIDKV15HUoeurmz1wypo6BEf6j5ez3Nsx/bP8AusIKeBSVJ0yAAAAAElFTkSuQmCC"
-                            alt="ok--v1">
+                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">check_circle</mat-icon>
                     </button>
                 </div>
             </div>

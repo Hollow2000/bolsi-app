@@ -9,10 +9,11 @@ import { CurrencyDirective } from '../../../core/directives/currency.directive';
 import { Utils } from '../../../core/Utils';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Income } from '../../../core/interfaces/primaryData.interface';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-income',
-  imports: [AsyncPipe, CurrencyPipe, AddElementComponent, ReactiveFormsModule, CurrencyDirective],
+  imports: [AsyncPipe, CurrencyPipe, AddElementComponent, ReactiveFormsModule, CurrencyDirective, MatIcon],
   templateUrl: './income.component.html',
   styleUrl: './income.component.scss',
   animations: [

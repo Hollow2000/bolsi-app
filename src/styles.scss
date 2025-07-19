@@ -191,3 +191,5 @@ html {
 .input.ng-invalid.ng-dirty::placeholder {
   color: var(--error-color);
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
