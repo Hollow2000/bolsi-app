@@ -67,15 +67,21 @@ export class IncomeComponent implements OnInit, OnDestroy {
     addElement.writing = false
   }
 
-  openEdit(income: Income){
+  openEdit(income: Income, item: HTMLDivElement) {
     this.incomeEditId = income.id;
     this.newIncomeForm.patchValue({
       name: income.name,
       amountEstimated: income.amountEstimated.toLocaleString("es-MX", { style: "currency", currency: "MXN" })
     });
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    }, 100);
+
   }
 
-  cancelEdit(){
+  cancelEdit() {
     this.newIncomeForm.reset();
     this.incomeEditId = undefined;
   }

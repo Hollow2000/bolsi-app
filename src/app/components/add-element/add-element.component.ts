@@ -7,7 +7,7 @@ import { Component, ElementRef, HostListener, Input, output } from '@angular/cor
     @if(writing) {
       <ng-content></ng-content>
     }@else {
-      <button class="card add" (click)="$event.preventDefault(); writing = true;">
+      <button class="card add" (click)="$event.preventDefault(); open()">
           <h2 class="text-large">{{label}}</h2>
           <div class="add-icon"></div>
       </button>
@@ -57,9 +57,21 @@ export class AddElementComponent {
 
   }
 
-  @HostListener('window:touchstart',['$event'])
-  @HostListener('window:mousedown',['$event'])
-  @HostListener('window:scroll', ['$event'])
+  open() {
+    this.writing = true;
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        this.elRef.nativeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
+      });
+    }, 100);
+
+  }
+
+  @HostListener('window:touchstart', ['$event'])
+  @HostListener('window:mousedown', ['$event'])
   outInteraction($event: Event) {
     if (this.writing && !this.elRef.nativeElement.contains($event.target)) {
       this.writing = false;
