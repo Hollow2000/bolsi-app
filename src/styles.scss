@@ -143,7 +143,6 @@ html {
   transition: background 0.3s ease;
   width: 100%;
   cursor: pointer;
-  outline: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   &-primary {
@@ -191,5 +190,3 @@ html {
 .input.ng-invalid.ng-dirty::placeholder {
   color: var(--error-color);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

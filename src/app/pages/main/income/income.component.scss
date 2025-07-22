@@ -69,24 +69,6 @@
     gap: 1rem;
 }
 
-.form-add {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-
-    #name {
-        flex: 2;
-    }
-
-    #amount {
-        flex: 1;
-    }
-
-    #frecuency {
-        flex: 1;
-    }
-}
-
 .buttons-add {
     display: flex;
     gap: 1rem;

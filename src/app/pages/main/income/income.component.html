@@ -9,20 +9,24 @@
         <div #item class="card income" [class.form]="incomeEditId === income.id" [@animate]>
             @if (incomeEditId === income.id) {
             <h3 class="title-small">Editar ingreso menusal</h3>
-            <div class="form-add">
+            <div class="form">
                 <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"
-                    [formControl]="newIncomeForm.controls.name">
-                <input class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
-                    [formControl]="newIncomeForm.controls.amountEstimated" appCurrency>
+                    [formControl]="newIncomeForm.controls.name" tabindex="1"
+                    (keydown.enter)="$event.preventDefault(); amount.focus()">
+                <input #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                    [formControl]="newIncomeForm.controls.amountEstimated" appCurrency tabindex="2"
+                    (keydown.enter)="$event.preventDefault(); submitEdit(income.id!)">
             </div>
             <div class="buttons-add">
-                <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()">
+                <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()" tabindex="3">
                     Cancelar
-                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">cancel</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded"
+                        style="font-size: 24px; color: white;">cancel</mat-icon>
                 </button>
-                <button class="btn-success" (click)="$event.preventDefault(); submitEdit(income.id!)">
+                <button class="btn-success" (click)="$event.preventDefault(); submitEdit(income.id!)" tabindex="4">
                     Confirmar
-                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">check_circle</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded"
+                        style="font-size: 24px; color: white;">check_circle</mat-icon>
                 </button>
             </div>
             }@else {
@@ -35,7 +39,8 @@
                     <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">edit</mat-icon>
                 </button>
                 <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteIncome(income.id!);">
-                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">delete</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
+                        color="white">delete</mat-icon>
                 </button>
             </div>
             }
@@ -50,20 +55,22 @@
         <app-add-element label="Agregar ingreso mensual" #addElement (onClose)="newIncomeForm.reset();" [@animate]>
             <div class="card form">
                 <h3 class="title-small">Nuevo ingreso menusal</h3>
-                <div class="form-add">
-                    <input class="text-medium input" type="text" name="name" id="name"
+                <div class="form">
+                    <input class="text-medium input" type="text" name="name" id="name" tabindex="0"
                         placeholder="Nombre/Alias/Concepto" [formControl]="newIncomeForm.controls.name">
                     <input class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
-                        [formControl]="newIncomeForm.controls.amountEstimated" appCurrency>
+                        [formControl]="newIncomeForm.controls.amountEstimated" appCurrency tabindex="1">
                 </div>
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
                         Cancelar
-                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">cancel</mat-icon>
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">cancel</mat-icon>
                     </button>
                     <button class="btn-success" (click)="$event.preventDefault(); submitNew(addElement)">
                         Confirmar
-                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">check_circle</mat-icon>
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">check_circle</mat-icon>
                     </button>
                 </div>
             </div>
