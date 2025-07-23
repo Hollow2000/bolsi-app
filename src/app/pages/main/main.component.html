@@ -1,3 +1,31 @@
-<p>main works!</p>
-<router-outlet/>
-<p>main works!</p>
+<div class="header">
+    <div class="content">
+        <img src="img/Bolsi con fondo.svg" alt="Bolsi" width="40px" height="40px">
+        <h1 class="title-medium">Bolsi</h1>
+    </div>
+    <div class="content">
+        <button class="text-medium">
+            <mat-icon fontSet="material-symbols-rounded">analytics</mat-icon>
+            Panel
+        </button>
+        <button class="text-medium">
+            <mat-icon fontSet="material-symbols-rounded">shopping_bag</mat-icon>
+            Compras
+        </button>
+        <div #menu>
+            <button (click)="$event.preventDefault(); this.showMenu = !this.showMenu;">
+                <mat-icon fontSet="material-symbols-rounded">menu</mat-icon>
+            </button>
+            @if (showMenu) {
+            <div class="menu">
+                <button class="text-medium">Mis ingresos</button>
+                <button class="text-medium">Mis bolsillos</button>
+                <button class="text-medium">Mis gastos</button>
+                <button class="text-medium">Mis metodos de pago</button>
+                <button class="text-medium">Configurar compras rapidas</button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<router-outlet />

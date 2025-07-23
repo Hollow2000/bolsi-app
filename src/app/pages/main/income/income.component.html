@@ -6,8 +6,8 @@
 <div class="scroll" #scroll>
     <div class="content">
         @for (income of incomes.list; track income.id) {
-        <div #item class="card income" [class.form]="incomeEditId === income.id" [@animate]>
-            @if (incomeEditId === income.id) {
+        <div #item class="card income" [class.form]="incomeEdit === item" [@animate]>
+            @if (incomeEdit === item) {
             <h3 class="title-small">Editar ingreso menusal</h3>
             <div class="form">
                 <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"

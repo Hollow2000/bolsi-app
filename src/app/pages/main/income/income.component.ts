@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { IncomeService } from '../../../services/income.service';
 import { IncomeViewData } from '../../../core/interfaces/incomeViewData.interface';
 import { Subject } from 'rxjs';
@@ -36,7 +36,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5)]),
     amountEstimated: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(11)]),
   });
-  incomeEditId?: number;
+  incomeEdit?: HTMLDivElement;
 
   ngOnInit(): void {
     this.incomeService.getIncomesViewDataObservable().subscribe(incomes => {
@@ -44,6 +44,14 @@ export class IncomeComponent implements OnInit, OnDestroy {
     }, error => {
       console.log(error);
     });
+  }
+
+  @HostListener('window:touchstart', ['$event'])
+  @HostListener('window:mousedown', ['$event'])
+  outInteraction($event: Event) {
+    if (this.incomeEdit && !this.incomeEdit.contains($event.target as Element)) {
+      this.cancelEdit();
+    }
   }
 
   ngOnDestroy(): void {
@@ -69,7 +77,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
   }
 
   openEdit(income: Income, item: HTMLDivElement) {
-    this.incomeEditId = income.id;
+    this.incomeEdit = item;
     this.newIncomeForm.patchValue({
       name: income.name,
       amountEstimated: income.amountEstimated.toLocaleString("es-MX", { style: "currency", currency: "MXN" })
@@ -84,7 +92,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
 
   cancelEdit() {
     this.newIncomeForm.reset();
-    this.incomeEditId = undefined;
+    this.incomeEdit = undefined;
   }
 
   submitEdit(incomeId: number) {
@@ -95,7 +103,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
       }
     );
     this.newIncomeForm.reset();
-    this.incomeEditId = undefined;
+    this.incomeEdit = undefined;
   }
 
   deleteIncome(incomeID: number) {

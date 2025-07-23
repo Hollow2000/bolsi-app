@@ -1,13 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { PocketService } from '../../services/pocket.service';
 import { Paths } from '../../core/constants/paths';
 import { IncomeService } from '../../services/income.service';
 import { PaymentMethodService } from '../../services/payment-method.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-main',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MatIcon],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -17,6 +18,9 @@ export class MainComponent implements OnInit {
   private readonly incomeService = inject(IncomeService);
   private readonly paymentMethodService = inject(PaymentMethodService);
 
+  showMenu = false;
+
+  @ViewChild('menu') menuElement?: ElementRef;
   async ngOnInit() {
     if (!this.router.url.includes(Paths.POCKETS) && 
     (await this.pocketService.getList()).length === 0) {
@@ -29,6 +33,14 @@ export class MainComponent implements OnInit {
     (await this.paymentMethodService.getList()).length === 0) {
       this.paymentMethodService.initPaymentMethods();
       this.router.navigate([`${Paths.MAIN}/${Paths.PAYMENT_METHODS}`],{replaceUrl:true});
+    }
+  }
+
+  @HostListener('window:touchstart', ['$event'])
+  @HostListener('window:mousedown', ['$event'])
+  outInteraction($event: Event) {
+    if (this.showMenu && this.menuElement && !this.menuElement.nativeElement.contains($event.target)) {
+      this.showMenu = false;
     }
   }
 
