@@ -1,14 +1,14 @@
 <div class="header">
-    <div class="content">
+    <div class="content" (click)="$event.preventDefault(); goTo(Paths.DASH_BOARD);">
         <img src="img/Bolsi con fondo.svg" alt="Bolsi" width="40px" height="40px">
         <h1 class="title-medium">Bolsi</h1>
     </div>
     <div class="content">
-        <button class="text-medium">
+        <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.DASH_BOARD);">
             <mat-icon fontSet="material-symbols-rounded">analytics</mat-icon>
             Panel
         </button>
-        <button class="text-medium">
+        <button class="text-medium" (click)="$event.preventDefault(); goTo('');">
             <mat-icon fontSet="material-symbols-rounded">shopping_bag</mat-icon>
             Compras
         </button>
@@ -18,11 +18,21 @@
             </button>
             @if (showMenu) {
             <div class="menu">
-                <button class="text-medium">Mis ingresos</button>
-                <button class="text-medium">Mis bolsillos</button>
-                <button class="text-medium">Mis gastos</button>
-                <button class="text-medium">Mis metodos de pago</button>
-                <button class="text-medium">Configurar compras rapidas</button>
+                <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.INCOME);">
+                    Mis ingresos
+                </button>
+                <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.POCKETS);">
+                    Mis bolsillos
+                </button>
+                <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.BILLS);">
+                    Mis gastos
+                </button>
+                <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.PAYMENT_METHODS);">
+                    Mis metodos de pago
+                </button>
+                <button class="text-medium" (click)="$event.preventDefault(); goTo('');">
+                    Configurar compras rapidas
+                </button>
             </div>
             }
         </div>

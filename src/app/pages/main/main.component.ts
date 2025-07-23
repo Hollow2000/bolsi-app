@@ -20,6 +20,10 @@ export class MainComponent implements OnInit {
 
   showMenu = false;
 
+  get Paths() {
+    return Paths;
+  }
+
   @ViewChild('menu') menuElement?: ElementRef;
   async ngOnInit() {
     if (!this.router.url.includes(Paths.POCKETS) && 
@@ -42,6 +46,11 @@ export class MainComponent implements OnInit {
     if (this.showMenu && this.menuElement && !this.menuElement.nativeElement.contains($event.target)) {
       this.showMenu = false;
     }
+  }
+
+  goTo(path: string) {
+    this.showMenu = false;
+    this.router.navigateByUrl(`${Paths.MAIN}/${path}`);
   }
 
 }
