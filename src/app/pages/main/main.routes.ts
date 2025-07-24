@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { Paths } from "../../core/constants/paths";
+import { UnsaveChangesGuard } from "../../core/guards/unsave-changes.guard";
 
 export const mainRoutes: Routes = [
     {
@@ -20,7 +21,8 @@ export const mainRoutes: Routes = [
     },
     {
         path: Paths.POCKETS,
-        loadComponent: () => import('./pockets/pockets.component').then(c => c.PocketsComponent)
+        loadComponent: () => import('./pockets/pockets.component').then(c => c.PocketsComponent),
+        canDeactivate: [UnsaveChangesGuard]
     },
     {
         path: Paths.SHOPPING,

@@ -26,6 +26,15 @@ export class PocketService extends BaseService<Pocket> {
     ]);
   }
 
+  async getTotalPercent(): Promise<number> {
+    const list = await this.getList();
+    let total = 0;
+    list.forEach(pocket => {
+      total = total + Number(pocket.percentEstimated)
+    });
+    return total;
+  }
+
   updatePockets(updates: Pocket[]) {
     this.table.bulkUpdate(
       updates.map(pocket => {

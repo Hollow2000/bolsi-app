@@ -26,17 +26,23 @@ export class MainComponent implements OnInit {
 
   @ViewChild('menu') menuElement?: ElementRef;
   async ngOnInit() {
-    if (!this.router.url.includes(Paths.POCKETS) && 
-    (await this.pocketService.getList()).length === 0) {
+    if (!this.router.url.includes(Paths.POCKETS) &&
+      (await this.pocketService.getList()).length === 0) {
       this.pocketService.initPockets();
-      this.router.navigate([`${Paths.MAIN}/${Paths.POCKETS}`],{replaceUrl:true});
-    }else if (!this.router.url.includes(Paths.INCOME) && 
-    (await this.incomeService.getList()).length === 0) {
-      this.router.navigate([`${Paths.MAIN}/${Paths.INCOME}`],{replaceUrl:true});
-    } else if (!this.router.url.includes(Paths.PAYMENT_METHODS) && 
-    (await this.paymentMethodService.getList()).length === 0) {
+      this.router.navigate([`${Paths.MAIN}/${Paths.POCKETS}`], { replaceUrl: true });
+
+    } else if (!this.router.url.includes(Paths.POCKETS) &&
+      (await this.pocketService.getTotalPercent()) !== 100) {
+      this.router.navigate([`${Paths.MAIN}/${Paths.POCKETS}`], { replaceUrl: true });
+
+    } else if (!this.router.url.includes(Paths.INCOME) &&
+      (await this.incomeService.getList()).length === 0) {
+      this.router.navigate([`${Paths.MAIN}/${Paths.INCOME}`], { replaceUrl: true });
+
+    } else if (!this.router.url.includes(Paths.PAYMENT_METHODS) &&
+      (await this.paymentMethodService.getList()).length === 0) {
       this.paymentMethodService.initPaymentMethods();
-      this.router.navigate([`${Paths.MAIN}/${Paths.PAYMENT_METHODS}`],{replaceUrl:true});
+      this.router.navigate([`${Paths.MAIN}/${Paths.PAYMENT_METHODS}`], { replaceUrl: true });
     }
   }
 

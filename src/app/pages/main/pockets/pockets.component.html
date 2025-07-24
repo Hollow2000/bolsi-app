@@ -46,7 +46,7 @@
     @if (totalPercent !== 100) {
         <span class="label-error">Favor de verificar los porcenajes</span>
     }
-    <button class="btn-primary" [disabled]="!arrayPocketForm.touched || totalPercent !== 100" (click)="$event.preventDefault(); submitALL()">
+    <button class="btn-primary" [disabled]="arrayPocketForm.untouched || totalPercent !== 100" (click)="$event.preventDefault(); submitALL()">
         Guardar
         <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">save</mat-icon>
     </button>

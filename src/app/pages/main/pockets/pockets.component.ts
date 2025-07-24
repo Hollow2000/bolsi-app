@@ -4,9 +4,9 @@ import { MatIcon } from '@angular/material/icon';
 import { AddElementComponent } from '../../../components/add-element/add-element.component';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Router } from '@angular/router';
 import { PercentDirective } from '../../../core/directives/percent.directive';
 import { Utils } from '../../../core/Utils';
+import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 
 @Component({
   selector: 'app-pockets',
@@ -25,7 +25,7 @@ import { Utils } from '../../../core/Utils';
     ])
   ]
 })
-export class PocketsComponent implements OnInit {
+export class PocketsComponent implements OnInit, UnsaveChanges {
   private readonly pocketService = inject(PocketService);
 
   totalPercent = 0;
@@ -56,7 +56,17 @@ export class PocketsComponent implements OnInit {
     });
   }
 
+  hasUnsaveChanges(): boolean {
+    if (this.totalPercent !== 100 || this.arrayPocketForm.touched){
+      alert('Verifica los porcentajes y guarda los cambios');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   calculateTotal() {
+    this.arrayPocketForm.markAsTouched();
     this.totalPercent = 0
     this.arrayPocketForm.value.forEach(pockets => {
       this.totalPercent = this.totalPercent + Utils.clearNumberFormat(pockets.percent!);
