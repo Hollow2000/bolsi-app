@@ -38,6 +38,10 @@ section .title-large {
   padding: 1rem 2rem;
 }
 
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+}
+
 footer {
   text-align: center;
   font-size: 0.85rem;

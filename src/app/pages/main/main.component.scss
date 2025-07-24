@@ -1,68 +1,132 @@
-:host {
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
+@media (max-width: 899px) {
+    :host {
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--primary-color);
+        color: var(--background-color);
+
+        img {
+            padding: 5px;
+        }
+
+        .title-medium {
+            font-weight: 600;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            height: 100%;
+            color: var(--background-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            user-select: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            font-weight: 500;
+        }
+
+        mat-icon {
+            font-size: 25px;
+            color: var(--background-color);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .menu {
+            position: fixed;
+            background-color: var(--primary-color);
+            right: 0px;
+            top: 49px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+
+            button {
+                padding: 10px;
+                width: 100%;
+            }
+
+            button:not(:last-child) {
+                border-bottom: 1px solid var(--background-color);
+            }
+
+            button:last-child {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+        }
+    }
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    background-color: var(--primary-color);
-    color: var(--background-color);
-
-    img {
-        padding: 5px;
-    }
-
-    .title-medium {
-        font-weight: 600;
-    }
-
-    button {
-        background-color: transparent;
-        border: none;
-        height: 100%;
-        color: var(--background-color);
+@media (min-width: 900px) {
+    :host {
+        height: 100dvh;
         display: flex;
-        align-items: center;
-        gap: 5px;
-        user-select: none;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        font-weight: 500;
+        flex-direction: row;
     }
 
-    mat-icon {
-        font-size: 25px;
+    .header {
+        display: none;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--primary-color);
         color: var(--background-color);
+
+        img {
+            padding: 5px;
+        }
+
+        .title-medium {
+            font-weight: 600;
+        }
+
+        button {
+            background-color: transparent;
+            border: none;
+            color: var(--background-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            user-select: none;
+            padding: 10px;
+            border-bottom: 1px solid var(--background-color);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover-color);
+        }
+
+        mat-icon {
+            font-size: 25px;
+            color: var(--background-color);
+        }
     }
 
     .content {
         display: flex;
-        flex-direction: row;
         align-items: center;
-    }
-
-    .menu {
-        position: fixed;
-        background-color: var(--primary-color);
-        right: 0px;
-        top: 49px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-
-        button {
-            padding: 10px;
-            width: 100%;
-        }
-
-        button:not(:last-child) {
-            border-bottom: 1px solid var(--background-color);
-        }
-
-        button:last-child {
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
+        user-select: none;
     }
 }
