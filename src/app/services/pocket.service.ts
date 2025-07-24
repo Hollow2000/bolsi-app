@@ -25,4 +25,12 @@ export class PocketService extends BaseService<Pocket> {
       }
     ]);
   }
+
+  updatePockets(updates: Pocket[]) {
+    this.table.bulkUpdate(
+      updates.map(pocket => {
+        return {changes: pocket, key: pocket.id!}
+      })
+    );
+  }
 }

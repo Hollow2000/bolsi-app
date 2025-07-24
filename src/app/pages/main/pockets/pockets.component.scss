@@ -1,0 +1,78 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1 1 auto;
+    overflow: auto;
+    height: 0;
+    margin: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.scroll {
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+    width: 95%;
+    padding: 8px;
+}
+
+@media (min-width: 600px) {
+    .content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.pocket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+
+    #name {
+        width: 75%;
+    }
+
+    #percent {
+        width: 25%;
+        text-align: center;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.buttons-add {
+    display: flex;
+    gap: 1rem;
+
+}
+button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem;
+}

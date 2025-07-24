@@ -2,7 +2,7 @@ import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/cor
 import { IncomeService } from '../../../services/income.service';
 import { IncomeViewData } from '../../../core/interfaces/incomeViewData.interface';
 import { Subject } from 'rxjs';
-import { AsyncPipe, CurrencyPipe, formatCurrency } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { AddElementComponent } from "../../../components/add-element/add-element.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyDirective } from '../../../core/directives/currency.directive';
@@ -32,8 +32,8 @@ export class IncomeComponent implements OnInit, OnDestroy {
   private readonly incomeService = inject(IncomeService);
 
   incomes$ = new Subject<IncomeViewData>();
-  newIncomeForm = new FormGroup({
-    name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5)]),
+  incomeForm = new FormGroup({
+    name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     amountEstimated: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(11)]),
   });
   incomeEdit?: HTMLDivElement;
@@ -59,26 +59,26 @@ export class IncomeComponent implements OnInit, OnDestroy {
   }
 
   async submitNew(addElement: AddElementComponent) {
-    if (this.newIncomeForm.valid) {
+    if (this.incomeForm.valid) {
       await this.incomeService.add({
-        name: this.newIncomeForm.value.name!,
-        amountEstimated: Utils.clearNumberFormat(this.newIncomeForm.value.amountEstimated!),
+        name: this.incomeForm.value.name!,
+        amountEstimated: Utils.clearNumberFormat(this.incomeForm.value.amountEstimated!),
       });
-      this.newIncomeForm.reset();
+      this.incomeForm.reset();
       addElement.writing = false;
     } else {
-      this.newIncomeForm.markAllAsTouched();
+      this.incomeForm.markAllAsTouched();
     }
   }
 
   cancelNew(addElement: AddElementComponent) {
-    this.newIncomeForm.reset();
+    this.incomeForm.reset();
     addElement.writing = false
   }
 
   openEdit(income: Income, item: HTMLDivElement) {
     this.incomeEdit = item;
-    this.newIncomeForm.patchValue({
+    this.incomeForm.patchValue({
       name: income.name,
       amountEstimated: income.amountEstimated.toLocaleString("es-MX", { style: "currency", currency: "MXN" })
     });
@@ -91,18 +91,18 @@ export class IncomeComponent implements OnInit, OnDestroy {
   }
 
   cancelEdit() {
-    this.newIncomeForm.reset();
+    this.incomeForm.reset();
     this.incomeEdit = undefined;
   }
 
   submitEdit(incomeId: number) {
     this.incomeService.update(incomeId,
       {
-        name: this.newIncomeForm.value.name!,
-        amountEstimated: Utils.clearNumberFormat(this.newIncomeForm.value.amountEstimated!),
+        name: this.incomeForm.value.name!,
+        amountEstimated: Utils.clearNumberFormat(this.incomeForm.value.amountEstimated!),
       }
     );
-    this.newIncomeForm.reset();
+    this.incomeForm.reset();
     this.incomeEdit = undefined;
   }
 

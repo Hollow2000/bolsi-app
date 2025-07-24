@@ -1,18 +1,51 @@
-@if (pockets$ | async; as pockets) {
-<div>
-    @for (pocket of pockets; track pocket.id) {
-    <div class="card">
-        <h3>{{pocket.name}}</h3>
-        <h3>{{pocket.percentEstimated}}</h3>
+<div class="header">
+    <h2 class="title-large">Porcentaje total:</h2>
+    <h2 class="title-large">{{totalPercent}}%</h2>
+</div>
+<div class="scroll" #scroll>
+    <div class="content">
+        @for (pocketForm of arrayPocketForm.controls; track pocketForm.controls.id.value) {
+        <div #item class="card pocket" [class.form]="pocketEdit === item" [@animate]>
+            <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre del bolsillo"
+                [formControl]="pocketForm.controls.name" tabindex="1"
+                (keydown.enter)="$event.preventDefault(); percent.focus()">
+            <input #percent class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+                [formControl]="pocketForm.controls.percent" tabindex="2" maxlength="2" (input)="calculateTotal()">
+            <span class="text-large" >%</span>
+        </div>
+        }
+        <app-add-element label="Agregar bolsillo" #addElement (onClose)="newPocketForm.reset();" [@animate]>
+            <div class="card form">
+                <h3 class="title-small">Nuevo bolsillo</h3>
+                <div class="pocket">
+                    <input class="text-medium input" type="text" name="name" id="name" tabindex="0"
+                        placeholder="Nombre del bolsillo" [formControl]="newPocketForm.controls.name">
+                    <input class="text-medium input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+                        [formControl]="newPocketForm.controls.percent" tabindex="1" maxlength="2">
+                    <span class="text-large" >%</span>
+                </div>
+                <div class="buttons-add">
+                    <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
+                        Cancelar
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">cancel</mat-icon>
+                    </button>
+                    <button class="btn-success" (click)="$event.preventDefault(); submitNew(addElement)">
+                        Confirmar
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">check_circle</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </app-add-element>
     </div>
-    }@empty {
-    <div>
-        <h2>Registra al menos un ingreso.</h2>
-    </div>
+</div>
+<div class="footer">
+    @if (totalPercent !== 100) {
+        <span class="label-error">Favor de verificar los porcenajes</span>
     }
+    <button class="btn-primary" [disabled]="totalPercent !== 100 && arrayPocketForm.touched" (click)="$event.preventDefault(); submitALL()">
+        Guardar
+        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">save</mat-icon>
+    </button>
 </div>
-} @else {
-<div>
-    <h1>Error al obtener tus bolsillos.</h1>
-</div>
-}

@@ -20,10 +20,4 @@ export class IncomeService extends BaseService<Income> {
       return {incomeTotal, list};
     });
   }
-
-  updateIncomes(inocmes: Income[]) {
-    return this.table.bulkUpdate(inocmes.map(income => {
-      return {changes: income, key: income.id!}
-    }));
-  }
 }
