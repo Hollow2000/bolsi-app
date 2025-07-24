@@ -56,10 +56,10 @@
             <div class="card form">
                 <h3 class="title-small">Nuevo ingreso menusal</h3>
                 <div class="form">
-                    <input class="text-medium input" type="text" name="name" id="name" tabindex="0"
+                    <input class="text-medium input" type="text" name="name" id="name" tabindex="1" (keydown.enter)="amount.focus()"
                         placeholder="Nombre/Alias/Concepto" [formControl]="incomeForm.controls.name">
-                    <input class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
-                        [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="1">
+                    <input #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                        [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="2">
                 </div>
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">

@@ -1,28 +1,30 @@
 <div class="header">
     <h2 class="title-large">Porcentaje total:</h2>
-    <h2 class="title-large">{{totalPercent}}%</h2>
+    <h2 class="title-large" [class.invalid]="totalPercent !== 100">{{totalPercent}}%</h2>
 </div>
 <div class="scroll" #scroll>
     <div class="content">
         @for (pocketForm of arrayPocketForm.controls; track pocketForm.controls.id.value) {
         <div #item class="card pocket" [class.form]="pocketEdit === item" [@animate]>
             <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre del bolsillo"
-                [formControl]="pocketForm.controls.name" tabindex="1"
-                (keydown.enter)="$event.preventDefault(); percent.focus()">
-            <input #percent class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
-                [formControl]="pocketForm.controls.percent" tabindex="2" maxlength="2" (input)="calculateTotal()">
-            <span class="text-large" >%</span>
+                [formControl]="pocketForm.controls.name" tabindex="1">
+            <input class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+                [formControl]="pocketForm.controls.percent" tabindex="2" maxlength="3" (input)="calculateTotal()" appPercent>
+            <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deletePocket(pocketForm.value.id!);">
+                <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
+                    color="white">delete</mat-icon>
+            </button>
         </div>
         }
         <app-add-element label="Agregar bolsillo" #addElement (onClose)="newPocketForm.reset();" [@animate]>
             <div class="card form">
                 <h3 class="title-small">Nuevo bolsillo</h3>
                 <div class="pocket">
-                    <input class="text-medium input" type="text" name="name" id="name" tabindex="0"
+                    <input class="text-medium input" type="text" name="name" id="name" tabindex="100" (keydown.enter)="percent.focus()"
                         placeholder="Nombre del bolsillo" [formControl]="newPocketForm.controls.name">
-                    <input class="text-medium input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
-                        [formControl]="newPocketForm.controls.percent" tabindex="1" maxlength="2">
-                    <span class="text-large" >%</span>
+                    <input #percent class="text-medium input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+                        [formControl]="newPocketForm.controls.percent" tabindex="101" maxlength="3" appPercent
+                        (keydown.enter)="$event.preventDefault(); submitNew(addElement)">
                 </div>
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
@@ -44,7 +46,7 @@
     @if (totalPercent !== 100) {
         <span class="label-error">Favor de verificar los porcenajes</span>
     }
-    <button class="btn-primary" [disabled]="totalPercent !== 100 && arrayPocketForm.touched" (click)="$event.preventDefault(); submitALL()">
+    <button class="btn-primary" [disabled]="!arrayPocketForm.touched || totalPercent !== 100" (click)="$event.preventDefault(); submitALL()">
         Guardar
         <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">save</mat-icon>
     </button>

@@ -5,10 +5,11 @@ import { AddElementComponent } from '../../../components/add-element/add-element
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
+import { PercentDirective } from '../../../core/directives/percent.directive';
 
 @Component({
   selector: 'app-pockets',
-  imports: [MatIcon, AddElementComponent, ReactiveFormsModule],
+  imports: [MatIcon, AddElementComponent, ReactiveFormsModule, PercentDirective],
   templateUrl: './pockets.component.html',
   styleUrl: './pockets.component.scss',
   animations: [
@@ -76,6 +77,10 @@ export class PocketsComponent implements OnInit {
   cancelNew(addElement: AddElementComponent) {
     this.newPocketForm.reset();
     addElement.writing = false;
+  }
+
+  deletePocket(id: number) {
+    this.pocketService.delete(id);
   }
 
   submitALL() {
