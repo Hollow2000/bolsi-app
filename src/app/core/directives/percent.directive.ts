@@ -8,21 +8,6 @@ export class PercentDirective {
 
   constructor(private el: ElementRef, @Optional() @Self() private ngControl: NgControl) { }
 
-   ngAfterViewInit(): void {
-    const input = this.el.nativeElement as HTMLInputElement;
-
-    // Espera un poco a que Angular termine de enlazar el valor
-    setTimeout(() => {
-      let value = input.value.replace(/[^0-9]/g, '').substring(0, 2);
-
-      if (value) {
-        input.value = `${value}%`;
-        // Posicionamos el cursor justo antes del %
-        input.setSelectionRange(value.length, value.length);
-      }
-    });
-  }
-
   @HostListener('input', ['$event']) onInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/[^0-9]/g, ''); // eliminar todo lo que no sea número

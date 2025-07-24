@@ -7,6 +7,8 @@ export const Paths = {
     BILLS: 'bills',
     PAYMENT_METHODS: 'payment-methods',
     POCKETS: 'pockets',
+    SHOPPING: 'shopping',
+    QUICK_SHOPPING: 'quick-shopping',
 
     AUTH: 'auth',
     LOGIN: 'login',

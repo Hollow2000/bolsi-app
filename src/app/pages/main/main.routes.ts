@@ -23,6 +23,14 @@ export const mainRoutes: Routes = [
         loadComponent: () => import('./pockets/pockets.component').then(c => c.PocketsComponent)
     },
     {
+        path: Paths.SHOPPING,
+        loadComponent: () => import('./shopping/shopping.component').then(c => c.ShoppingComponent)
+    },
+    {
+        path: Paths.QUICK_SHOPPING,
+        loadComponent: () => import('./quick-shopping/quick-shopping.component').then(c => c.QuickShoppingComponent)
+    },
+    {
         path: Paths.NOT_FOUND,
         redirectTo: Paths.DASH_BOARD
     }

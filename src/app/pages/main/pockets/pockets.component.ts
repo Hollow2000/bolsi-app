@@ -6,6 +6,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { PercentDirective } from '../../../core/directives/percent.directive';
+import { Utils } from '../../../core/Utils';
 
 @Component({
   selector: 'app-pockets',
@@ -25,7 +26,6 @@ import { PercentDirective } from '../../../core/directives/percent.directive';
   ]
 })
 export class PocketsComponent implements OnInit {
-  private readonly router = inject(Router);
   private readonly pocketService = inject(PocketService);
 
   totalPercent = 0;
@@ -33,11 +33,11 @@ export class PocketsComponent implements OnInit {
 
   newPocketForm = new FormGroup({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(3)]),
-    percent: new FormControl<number | null>(null, [Validators.required, Validators.min(1)])
+    percent: new FormControl<string | null>(null, [Validators.required, Validators.min(1)])
   });
 
   arrayPocketForm = new FormArray<FormGroup<{
-    id: FormControl<number | null>, name: FormControl<string | null>, percent: FormControl<number | null>
+    id: FormControl<number | null>, name: FormControl<string | null>, percent: FormControl<string | null>
   }>>([]);
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class PocketsComponent implements OnInit {
         this.arrayPocketForm.push(new FormGroup({
           id: new FormControl(pocket.id!), 
           name: new FormControl(pocket.name, [Validators.required, Validators.minLength(3)]),
-          percent: new FormControl(pocket.percentEstimated, [Validators.required,Validators.min(1)])
+          percent: new FormControl(`${pocket.percentEstimated}%`, [Validators.required,Validators.min(1)])
         }));
         this.totalPercent += Number(pocket.percentEstimated);
       });
@@ -59,18 +59,19 @@ export class PocketsComponent implements OnInit {
   calculateTotal() {
     this.totalPercent = 0
     this.arrayPocketForm.value.forEach(pockets => {
-      this.totalPercent = this.totalPercent + Number(pockets.percent!);
+      this.totalPercent = this.totalPercent + Utils.clearNumberFormat(pockets.percent!);
     });
   }
 
   submitNew(addElement: AddElementComponent) {
-    this.newPocketForm.markAllAsTouched();
     if (this.newPocketForm.valid) {
       this.pocketService.add({
         name: this.newPocketForm.value.name!,
-        percentEstimated: this.newPocketForm.value.percent!
+        percentEstimated: Utils.clearNumberFormat(this.newPocketForm.value.percent!)
       });
       this.cancelNew(addElement);
+    } else {
+      this.newPocketForm.markAllAsTouched();
     }
   }
 
@@ -86,8 +87,13 @@ export class PocketsComponent implements OnInit {
   submitALL() {
     if (this.arrayPocketForm.valid) {
       this.pocketService.updatePockets(this.arrayPocketForm.value.map(pocket => {
-        return {id: pocket.id!, name: pocket.name!, percentEstimated: Number(pocket.percent!)}
+        return {
+          id: pocket.id!, 
+          name: pocket.name!, 
+          percentEstimated: Utils.clearNumberFormat(pocket.percent!)
+        }
       }));
+      this.arrayPocketForm.markAsUntouched();
     } else {
       this.arrayPocketForm.markAllAsTouched();
     }
