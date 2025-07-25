@@ -12,6 +12,7 @@ import { Income } from '../../../core/interfaces/primaryData.interface';
 import { MatIcon } from '@angular/material/icon';
 import { AlertMessageService } from '../../../services/alert-message.service';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
+import { Icons } from '../../../core/constants/icons';
 
 @Component({
   selector: 'app-income',
@@ -40,6 +41,10 @@ export class IncomeComponent implements OnInit, OnDestroy {
     amountEstimated: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(11)]),
   });
   incomeEdit?: HTMLDivElement;
+
+  get Icons() {
+    return Icons;
+  }
 
   ngOnInit(): void {
     this.incomeService.getIncomesViewDataObservable().subscribe(incomes => {

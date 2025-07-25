@@ -5,37 +5,37 @@
     </div>
     <div class="content">
         <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.DASH_BOARD);">
-            <mat-icon fontSet="material-symbols-rounded">analytics</mat-icon>
+            <mat-icon fontSet="material-symbols-rounded">{{Icons.ANALYTICS}}</mat-icon>
             Panel
         </button>
         <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.SHOPPING);">
-            <mat-icon fontSet="material-symbols-rounded">shopping_bag</mat-icon>
+            <mat-icon fontSet="material-symbols-rounded">{{Icons.SHOPPING}}</mat-icon>
             Compras
         </button>
         <div #menu>
             <button (click)="$event.preventDefault(); this.showMenu = !this.showMenu;">
-                <mat-icon fontSet="material-symbols-rounded">menu</mat-icon>
+                <mat-icon fontSet="material-symbols-rounded">{{Icons.MENU}}</mat-icon>
             </button>
             @if (showMenu) {
             <div class="menu">
                 <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.INCOME);">
-                    <mat-icon fontSet="material-symbols-rounded">attach_money</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded">{{Icons.INCOME}}</mat-icon>
                     Mis ingresos
                 </button>
                 <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.POCKETS);">
-                    <mat-icon fontSet="material-symbols-rounded">money_bag</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded">{{Icons.POCKET}}</mat-icon>
                     Mis bolsillos
                 </button>
                 <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.BILLS);">
-                    <mat-icon fontSet="material-symbols-rounded">payments</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded">{{Icons.BILLS}}</mat-icon>
                     Mis gastos
                 </button>
                 <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.PAYMENT_METHODS);">
-                    <mat-icon fontSet="material-symbols-rounded">account_balance_wallet</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded">{{Icons.PAYMENT_METHOD}}</mat-icon>
                     Mis metodos de pago
                 </button>
                 <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.QUICK_SHOPPING);">
-                    <mat-icon fontSet="material-symbols-rounded">shopping_bag_speed</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded">{{Icons.QUICK_SHOPPING}}</mat-icon>
                     Configurar compras rapidas
                 </button>
             </div>
@@ -49,31 +49,31 @@
         <h1 class="title-medium">Bolsi</h1>
     </div>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.DASH_BOARD);">
-        <mat-icon fontSet="material-symbols-rounded">analytics</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.ANALYTICS}}</mat-icon>
         Panel
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.SHOPPING);">
-        <mat-icon fontSet="material-symbols-rounded">shopping_bag</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.SHOPPING}}</mat-icon>
         Compras
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.INCOME);">
-        <mat-icon fontSet="material-symbols-rounded">attach_money</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.INCOME}}</mat-icon>
         Mis ingresos
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.POCKETS);">
-        <mat-icon fontSet="material-symbols-rounded">money_bag</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.POCKET}}</mat-icon>
         Mis bolsillos
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.BILLS);">
-        <mat-icon fontSet="material-symbols-rounded">payments</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.BILLS}}</mat-icon>
         Mis gastos
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.PAYMENT_METHODS);">
-        <mat-icon fontSet="material-symbols-rounded">account_balance_wallet</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.PAYMENT_METHOD}}</mat-icon>
         Mis metodos de pago
     </button>
     <button class="text-medium" (click)="$event.preventDefault(); goTo(Paths.QUICK_SHOPPING);">
-        <mat-icon fontSet="material-symbols-rounded">shopping_bag_speed</mat-icon>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.QUICK_SHOPPING}}</mat-icon>
         Configurar compras rapidas
     </button>
 </div>

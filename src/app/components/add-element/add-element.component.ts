@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { Icons } from '../../core/constants/icons';
 
 @Component({
   selector: 'app-add-element',
@@ -10,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
     }@else {
       <button class="card add" (click)="$event.preventDefault(); open()">
           <h2 class="text-large">{{label}}</h2>
-          <mat-icon fontSet="material-symbols-rounded" class="add-icon">add_circle</mat-icon>
+          <mat-icon fontSet="material-symbols-rounded" class="add-icon">{{Icons.ADD}}</mat-icon>
       </button>
     }
   `,
@@ -43,6 +44,10 @@ export class AddElementComponent {
   @Input({ required: true }) label: string = '';
   onClose = output();
   writing = false;
+
+  get Icons() {
+    return Icons;
+  }
 
   constructor(private readonly elRef: ElementRef) {
 

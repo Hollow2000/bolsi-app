@@ -5,6 +5,7 @@ import { Paths } from '../../core/constants/paths';
 import { IncomeService } from '../../services/income.service';
 import { PaymentMethodService } from '../../services/payment-method.service';
 import { MatIcon } from '@angular/material/icon';
+import { Icons } from '../../core/constants/icons';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,10 @@ export class MainComponent implements OnInit {
 
   get Paths() {
     return Paths;
+  }
+
+  get Icons() {
+    return Icons;
   }
 
   @ViewChild('menu') menuElement?: ElementRef;

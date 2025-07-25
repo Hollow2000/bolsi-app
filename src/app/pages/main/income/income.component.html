@@ -21,12 +21,12 @@
                 <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()" tabindex="3">
                     Cancelar
                     <mat-icon fontSet="material-symbols-rounded"
-                        style="font-size: 24px; color: white;">cancel</mat-icon>
+                        style="font-size: 24px; color: white;">{{Icons.CANCEL}}</mat-icon>
                 </button>
                 <button class="btn-success" (click)="$event.preventDefault(); submitEdit(income.id!)" tabindex="4">
                     Confirmar
                     <mat-icon fontSet="material-symbols-rounded"
-                        style="font-size: 24px; color: white;">check_circle</mat-icon>
+                        style="font-size: 24px; color: white;">{{Icons.CONFIRM}}</mat-icon>
                 </button>
             </div>
             }@else {
@@ -36,11 +36,11 @@
             </div>
             <div class="actions">
                 <button class="btn-primary" id="edit" (click)="$event.preventDefault(); openEdit(income,item);">
-                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">edit</mat-icon>
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">{{Icons.EDIT}}</mat-icon>
                 </button>
                 <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteIncome(income.id!, income.name);">
                     <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
-                        color="white">delete</mat-icon>
+                        color="white">{{Icons.DELETE}}</mat-icon>
                 </button>
             </div>
             }
@@ -65,12 +65,12 @@
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
                         Cancelar
                         <mat-icon fontSet="material-symbols-rounded"
-                            style="font-size: 24px; color: white;">cancel</mat-icon>
+                            style="font-size: 24px; color: white;">{{Icons.CANCEL}}</mat-icon>
                     </button>
                     <button class="btn-success" (click)="$event.preventDefault(); submitNew(addElement)">
                         Confirmar
                         <mat-icon fontSet="material-symbols-rounded"
-                            style="font-size: 24px; color: white;">check_circle</mat-icon>
+                            style="font-size: 24px; color: white;">{{Icons.CONFIRM}}</mat-icon>
                     </button>
                 </div>
             </div>

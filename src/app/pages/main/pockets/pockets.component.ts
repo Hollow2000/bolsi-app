@@ -9,6 +9,7 @@ import { Utils } from '../../../core/Utils';
 import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 import { AlertMessageService } from '../../../services/alert-message.service';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
+import { Icons } from '../../../core/constants/icons';
 
 @Component({
   selector: 'app-pockets',
@@ -42,6 +43,10 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
   arrayPocketForm = new FormArray<FormGroup<{
     id: FormControl<number | null>, name: FormControl<string | null>, percent: FormControl<string | null>
   }>>([]);
+
+  get Icons() {
+    return Icons;
+  }
 
   ngOnInit(): void {
     this.pocketService.getObservable().subscribe(pockets => {
