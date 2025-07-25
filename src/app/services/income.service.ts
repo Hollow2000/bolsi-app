@@ -10,7 +10,7 @@ import { BaseService } from './base.service';
 })
 export class IncomeService extends BaseService<Income> {
   protected override table = db.incomeTable;
-  getIncomesViewDataObservable(): Observable<IncomeViewData> {
+  getViewDataObservable(): Observable<IncomeViewData> {
     return liveQuery(async () => {
       const list = await this.table.toArray();
       let incomeTotal = 0;

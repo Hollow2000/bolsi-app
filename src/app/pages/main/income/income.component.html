@@ -1,4 +1,4 @@
-@if (incomes$ | async; as incomes) {
+@if (incomes && !errorMessage) {
 <div class="header">
     <h2 class="title-large">Ingreso mensual:</h2>
     <h2 class="title-large">{{incomes.incomeTotal | currency}}</h2>
@@ -79,6 +79,6 @@
 </div>
 }@else {
 <div>
-    <h1>Error al obtener tus ingresos.</h1>
+    <h1 class="title-xlarge">{{errorMessage}}</h1>
 </div>
 }

@@ -1,4 +1,5 @@
-<div class="header">
+@if (!errorMessage) {
+    <div class="header">
     <h2 class="title-large">Porcentaje total:</h2>
     <h2 class="title-large" [class.invalid]="totalPercent !== 100">{{totalPercent}}%</h2>
 </div>
@@ -51,3 +52,6 @@
         <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px; color: white;">save</mat-icon>
     </button>
 </div>
+} @else {
+    <h1 class="title-xlarge">{{errorMessage}}</h1>
+}

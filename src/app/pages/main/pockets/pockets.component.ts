@@ -44,23 +44,32 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
     id: FormControl<number | null>, name: FormControl<string | null>, percent: FormControl<string | null>
   }>>([]);
 
+  errorMessage?: string;
+
   get Icons() {
     return Icons;
   }
 
   ngOnInit(): void {
     this.pocketService.getObservable().subscribe(pockets => {
-      this.arrayPocketForm.clear();
-      this.totalPercent = 0;
-      pockets.forEach(pocket => {
-        this.arrayPocketForm.push(new FormGroup({
-          id: new FormControl(pocket.id!),
-          name: new FormControl(pocket.name, [Validators.required, Validators.minLength(3)]),
-          percent: new FormControl(`${pocket.percentEstimated}%`, [Validators.required, Validators.min(1)])
-        }));
-        this.totalPercent += Number(pocket.percentEstimated);
-      });
-      this.arrayPocketForm.updateValueAndValidity();
+      try {
+        this.arrayPocketForm.clear();
+        this.totalPercent = 0;
+        pockets.forEach(pocket => {
+          this.arrayPocketForm.push(new FormGroup({
+            id: new FormControl(pocket.id!),
+            name: new FormControl(pocket.name, [Validators.required, Validators.minLength(3)]),
+            percent: new FormControl(`${pocket.percentEstimated}%`, [Validators.required, Validators.min(1)])
+          }));
+          this.totalPercent += Number(pocket.percentEstimated);
+        });
+        this.arrayPocketForm.updateValueAndValidity();
+      } catch (error) {
+        this.errorMessage = 'Error al cargar los bolsillos: ' + (error as Error).message;
+      }
+    }, error => {
+      this.errorMessage = 'Error al cargar los bolsillos: ' + error.message;
+      this.totalPercent = 100;
     });
   }
 

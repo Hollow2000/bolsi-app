@@ -16,7 +16,7 @@ import { Icons } from '../../../core/constants/icons';
 
 @Component({
   selector: 'app-income',
-  imports: [AsyncPipe, CurrencyPipe, AddElementComponent, ReactiveFormsModule, CurrencyDirective, MatIcon],
+  imports: [CurrencyPipe, AddElementComponent, ReactiveFormsModule, CurrencyDirective, MatIcon],
   templateUrl: './income.component.html',
   styleUrl: './income.component.scss',
   animations: [
@@ -31,11 +31,12 @@ import { Icons } from '../../../core/constants/icons';
     ])
   ]
 })
-export class IncomeComponent implements OnInit, OnDestroy {
+export class IncomeComponent implements OnInit {
   private readonly incomeService = inject(IncomeService);
   private readonly alertService = inject(AlertMessageService);
 
-  incomes$ = new Subject<IncomeViewData>();
+  incomes?: IncomeViewData;
+  errorMessage?: string;;
   incomeForm = new FormGroup({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     amountEstimated: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(11)]),
@@ -47,10 +48,10 @@ export class IncomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.incomeService.getIncomesViewDataObservable().subscribe(incomes => {
-      this.incomes$.next(incomes);
+    this.incomeService.getViewDataObservable().subscribe(incomes => {
+      this.incomes = incomes;
     }, error => {
-      console.log(error);
+      this.errorMessage = 'Error al cargar los ingresos: ' + error.message;
     });
   }
 
@@ -60,10 +61,6 @@ export class IncomeComponent implements OnInit, OnDestroy {
     if (this.incomeEdit && !this.incomeEdit.contains($event.target as Element)) {
       this.cancelEdit();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.incomes$.complete();
   }
 
   async submitNew(addElement: AddElementComponent) {
