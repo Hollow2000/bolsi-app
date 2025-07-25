@@ -8,6 +8,7 @@ import { PercentDirective } from '../../../core/directives/percent.directive';
 import { Utils } from '../../../core/Utils';
 import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 import { AlertMessageService } from '../../../services/alert-message.service';
+import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 
 @Component({
   selector: 'app-pockets',
@@ -92,7 +93,9 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
     addElement.writing = false;
   }
 
-  deletePocket(id: number) {
+  async deletePocket(id: number, name: string) {
+    const res = await this.alertService.addQuestionYoNDanger(`¿Desea eliminar ${name}?`, 'Eliminar bolsillo');
+    if (res !== AlertResponseEnum.danger) return;
     this.pocketService.delete(id);
   }
 

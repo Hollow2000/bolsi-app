@@ -10,6 +10,8 @@ import { Utils } from '../../../core/Utils';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Income } from '../../../core/interfaces/primaryData.interface';
 import { MatIcon } from '@angular/material/icon';
+import { AlertMessageService } from '../../../services/alert-message.service';
+import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 
 @Component({
   selector: 'app-income',
@@ -30,6 +32,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class IncomeComponent implements OnInit, OnDestroy {
   private readonly incomeService = inject(IncomeService);
+  private readonly alertService = inject(AlertMessageService);
 
   incomes$ = new Subject<IncomeViewData>();
   incomeForm = new FormGroup({
@@ -106,7 +109,9 @@ export class IncomeComponent implements OnInit, OnDestroy {
     this.incomeEdit = undefined;
   }
 
-  deleteIncome(incomeID: number) {
+  async deleteIncome(incomeID: number, name: string) {
+    const res = await this.alertService.addQuestionYoNDanger(`¿Desea eliminar ${name}?`, 'Eliminar ingreso');
+    if (res !== AlertResponseEnum.danger) return;
     this.incomeService.delete(incomeID);
   }
 }

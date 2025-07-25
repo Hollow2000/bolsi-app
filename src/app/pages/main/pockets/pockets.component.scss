@@ -85,6 +85,10 @@ button {
     padding: 0.5rem;
 }
 
+.pocket button {
+    border-radius: 50%;
+}
+
 .footer {
     max-width: var(--max-width);
     margin: 0 auto;

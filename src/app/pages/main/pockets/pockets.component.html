@@ -10,7 +10,7 @@
                 [formControl]="pocketForm.controls.name" tabindex="1">
             <input class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
                 [formControl]="pocketForm.controls.percent" tabindex="2" maxlength="3" (input)="calculateTotal()" appPercent>
-            <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deletePocket(pocketForm.value.id!);">
+            <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deletePocket(pocketForm.value.id!, pocketForm.value.name!);">
                 <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
                     color="white">delete</mat-icon>
             </button>

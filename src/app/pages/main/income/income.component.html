@@ -38,7 +38,7 @@
                 <button class="btn-primary" id="edit" (click)="$event.preventDefault(); openEdit(income,item);">
                     <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">edit</mat-icon>
                 </button>
-                <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteIncome(income.id!);">
+                <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteIncome(income.id!, income.name);">
                     <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
                         color="white">delete</mat-icon>
                 </button>
