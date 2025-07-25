@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="header">
+        @if (showCloseBtn ?? false) {
+        <div class="close-content">
+            <span class="close">X</span>
+        </div>
+        }
+        @if (iconSrc) {
+        <img src="{{iconSrc}}" alt="icon">
+        }
+        <h2 class="title-large">{{titleText ?? "Atención"}}</h2>
+    </div>
+    <div class="content text-medium">
+        <p>{{contentText}}</p>
+    </div>
+    <div class="footer">
+        @if (primaryText || (showPrimaryBtn ?? true)) {
+        <button class="primary text-medium" (click)="responseAlert(responseEnum.primary)">{{primaryText ?? "Aceptar"}}</button>
+        }
+        @if (secundaryText || (showSecundaryBtn ?? false)) {
+        <button class="secundary  text-medium" (click)="responseAlert(responseEnum.secundary)">{{secundaryText ??
+            "Regresar"}}</button>
+        }
+        @if (dangerText || (showDangerBtn ?? false)) {
+        <button class="danger  text-medium" (click)="responseAlert(responseEnum.danger)">{{dangerText ?? "Cancelar"}}</button>
+        }
+    </div>
+</div>

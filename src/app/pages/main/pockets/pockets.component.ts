@@ -7,6 +7,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { PercentDirective } from '../../../core/directives/percent.directive';
 import { Utils } from '../../../core/Utils';
 import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
+import { AlertMessageService } from '../../../services/alert-message.service';
 
 @Component({
   selector: 'app-pockets',
@@ -27,6 +28,7 @@ import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 })
 export class PocketsComponent implements OnInit, UnsaveChanges {
   private readonly pocketService = inject(PocketService);
+  private readonly alertService = inject(AlertMessageService);
 
   totalPercent = 0;
   pocketEdit?: HTMLDivElement;
@@ -46,9 +48,9 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
       this.totalPercent = 0;
       pockets.forEach(pocket => {
         this.arrayPocketForm.push(new FormGroup({
-          id: new FormControl(pocket.id!), 
+          id: new FormControl(pocket.id!),
           name: new FormControl(pocket.name, [Validators.required, Validators.minLength(3)]),
-          percent: new FormControl(`${pocket.percentEstimated}%`, [Validators.required,Validators.min(1)])
+          percent: new FormControl(`${pocket.percentEstimated}%`, [Validators.required, Validators.min(1)])
         }));
         this.totalPercent += Number(pocket.percentEstimated);
       });
@@ -57,8 +59,8 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
   }
 
   hasUnsaveChanges(): boolean {
-    if (this.totalPercent !== 100 || this.arrayPocketForm.touched){
-      alert('Verifica los porcentajes y guarda los cambios');
+    if (this.totalPercent !== 100 || this.arrayPocketForm.touched) {
+      this.alertService.addInfo('Los porcentajes deben sumar 100% y guardar los cambios para continuar');
       return false;
     } else {
       return true;
@@ -98,8 +100,8 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
     if (this.arrayPocketForm.valid) {
       this.pocketService.updatePockets(this.arrayPocketForm.value.map(pocket => {
         return {
-          id: pocket.id!, 
-          name: pocket.name!, 
+          id: pocket.id!,
+          name: pocket.name!,
           percentEstimated: Utils.clearNumberFormat(pocket.percent!)
         }
       }));

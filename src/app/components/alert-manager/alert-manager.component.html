@@ -1,0 +1,21 @@
+@if (opacity) {
+    <div class="host" [@fadeInOut]>
+        <div class="wrapper">
+            @if (alertsPending.length !== 0 && animation) {
+                <app-alert-message [@popInOut] #alert
+                [iconSrc]="alertsPending[0].iconSrc"
+                [titleText]="alertsPending[0].titleText"
+                [contentText]="alertsPending[0].contentText"
+                [primaryText]="alertsPending[0].primaryText"
+                [secundaryText]="alertsPending[0].secundaryText"
+                [dangerText]="alertsPending[0].dangerText"
+                [showCloseBtn]="alertsPending[0].showCloseBtn"
+                [showPrimaryBtn]="alertsPending[0].showPrimaryBtn"
+                [showSecundaryBtn]="alertsPending[0].showSecundaryBtn"
+                [showDangerBtn]="alertsPending[0].showDangerBtn"
+                (response)="handleAlertResponse($event)"
+                />
+            }
+        </div>
+    </div>
+}
