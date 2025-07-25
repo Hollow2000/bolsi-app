@@ -1,5 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output} from '@angular/core';
-import { AlertMessageService } from '../../services/alert-message.service';
+import { AlertMessageService, IconData } from '../../services/alert-message.service';
+import { MatIcon } from '@angular/material/icon';
 
 export enum AlertResponseEnum{
   primary,
@@ -9,7 +10,7 @@ export enum AlertResponseEnum{
 
 @Component({
   selector: 'app-alert-message',
-  imports: [],
+  imports: [MatIcon],
   templateUrl: './alert-message.component.html',
   styleUrl: './alert-message.component.css'
 })
@@ -17,7 +18,15 @@ export class AlertMessageComponent{
   responseEnum = AlertResponseEnum;
   alertService = inject(AlertMessageService);
 
-  @Input() iconSrc? = "";
+  @Input() iconSrc?: IconData = {
+    name: "info",
+    iconStyle: {
+      color: "var(--primary-color)",
+      fontSize: "50px",
+      width: "50px",
+      height: "50px",
+    }
+  };
   @Input() titleText? = "Atención";
   @Input() contentText = ""
 

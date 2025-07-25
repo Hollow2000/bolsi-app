@@ -6,7 +6,7 @@
         </div>
         }
         @if (iconSrc) {
-        <img src="{{iconSrc}}" alt="icon">
+            <mat-icon [style]="iconSrc.iconStyle" fontSet="material-symbols-rounded">{{iconSrc.name ?? "info"}}</mat-icon>
         }
         <h2 class="title-large">{{titleText ?? "Atención"}}</h2>
     </div>
@@ -15,14 +15,14 @@
     </div>
     <div class="footer">
         @if (primaryText || (showPrimaryBtn ?? true)) {
-        <button class="primary text-medium" (click)="responseAlert(responseEnum.primary)">{{primaryText ?? "Aceptar"}}</button>
+        <button class="btn-primary text-medium" (click)="responseAlert(responseEnum.primary)">{{primaryText ?? "Aceptar"}}</button>
         }
         @if (secundaryText || (showSecundaryBtn ?? false)) {
-        <button class="secundary  text-medium" (click)="responseAlert(responseEnum.secundary)">{{secundaryText ??
+        <button class="btn-secundary  text-medium" (click)="responseAlert(responseEnum.secundary)">{{secundaryText ??
             "Regresar"}}</button>
         }
         @if (dangerText || (showDangerBtn ?? false)) {
-        <button class="danger  text-medium" (click)="responseAlert(responseEnum.danger)">{{dangerText ?? "Cancelar"}}</button>
+        <button class="btn-danger  text-medium" (click)="responseAlert(responseEnum.danger)">{{dangerText ?? "Cancelar"}}</button>
         }
     </div>
 </div>

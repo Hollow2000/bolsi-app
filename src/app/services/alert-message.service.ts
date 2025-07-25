@@ -5,7 +5,7 @@ import { Icons } from '../core/constants/icons';
 
 export interface AlertMessageData{
   id: number;
-  iconSrc?: string;
+  iconSrc?: IconData
   titleText?: string;
   contentText: string;
   primaryText?: string;
@@ -16,6 +16,11 @@ export interface AlertMessageData{
   showSecundaryBtn?: boolean;
   showDangerBtn?: boolean;
   alertResponseSubject: BehaviorSubject<AlertResponseEnum | null>;
+}
+
+export interface IconData {
+  name: string;
+  iconStyle?: { [key: string]: string };
 }
 
 @Injectable({
@@ -43,7 +48,9 @@ export class AlertMessageService {
 
     alerts.push({
       id: newId,
-      iconSrc: Icons.INFO,
+      iconSrc: {
+        name: Icons.INFO
+      },
       titleText: title,
       contentText: question,
       primaryText: "Si",
@@ -79,7 +86,12 @@ export class AlertMessageService {
 
     alerts.push({
       id: newId,
-      iconSrc: Icons.WARNING,
+      iconSrc:{
+        name: Icons.WARNING,
+        iconStyle: {
+          backgroundColor: "var(--warning-color)"
+        }
+      },
       titleText: title,
       contentText: question,
       primaryText: "No",
@@ -115,7 +127,9 @@ export class AlertMessageService {
 
     alerts.push({
       id: newId,
-      iconSrc: Icons.INFO,
+      iconSrc: {
+        name: Icons.INFO
+      },
       contentText: textContent,
       primaryText: textBtn,
       alertResponseSubject: alertResponseSubject
@@ -150,7 +164,12 @@ export class AlertMessageService {
 
     alerts.push({
       id: newId,
-      iconSrc: Icons.SUCCESS,
+      iconSrc: {
+        name: Icons.SUCCESS,
+        iconStyle: {
+          backgroundColor: "var(--success-color)"
+        }
+      },
       titleText: "Exito!",
       contentText: textContent ? textContent : "La acción se realizo correctamente",
       primaryText: textBtn,
@@ -186,7 +205,12 @@ export class AlertMessageService {
 
     alerts.push({
       id: newId,
-      iconSrc: Icons.ERROR,
+      iconSrc: {
+        name: Icons.ERROR,
+        iconStyle: {
+          backgroundColor: "var(--danger-color)"
+        }
+      },
       titleText: "Error!",
       contentText: textContent ? textContent : "Ocurrio un error al realizar esta acción",
       primaryText: textBtn,
@@ -219,7 +243,7 @@ export class AlertMessageService {
    * @returns La respuesta que el usuario seleccione de tipo 
    * AlertResponseEnum.primary, AlertResponseEnum. secundary o AlertResponseEnum.danger
    */
-  addCustom(message: string, iconSrc?: string, title?: string, showClose?: boolean,
+  addCustom(message: string, iconSrc?: IconData, title?: string, showClose?: boolean,
     textPrimary?: string, textSecundary?: string, textDanger?: string,
     showPrimary?: boolean, showSecundary?: boolean, showDanger?: boolean
   ): Promise<AlertResponseEnum> {

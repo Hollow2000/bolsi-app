@@ -157,6 +157,12 @@ html {
     @extend .btn;
     background-color: var(--danger-color);
   }
+  &-secundary {
+    @extend .btn;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+  }
 }
 
 .btn:disabled {
