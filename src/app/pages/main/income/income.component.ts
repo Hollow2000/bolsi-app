@@ -1,8 +1,7 @@
-import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { IncomeService } from '../../../services/income.service';
 import { IncomeViewData } from '../../../core/interfaces/incomeViewData.interface';
-import { Subject } from 'rxjs';
-import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { AddElementComponent } from "../../../components/add-element/add-element.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyDirective } from '../../../core/directives/currency.directive';
@@ -100,15 +99,20 @@ export class IncomeComponent implements OnInit {
     this.incomeEdit = undefined;
   }
 
-  submitEdit(incomeId: number) {
-    this.incomeService.update(incomeId,
-      {
-        name: this.incomeForm.value.name!,
-        amountEstimated: Utils.clearNumberFormat(this.incomeForm.value.amountEstimated!),
+  async submitEdit(incomeId: number) {
+    if (this.incomeForm.valid) {
+      try {
+        await this.incomeService.update(incomeId, {
+          name: this.incomeForm.value.name!,
+          amountEstimated: Utils.clearNumberFormat(this.incomeForm.value.amountEstimated!),
+        });
+        this.cancelEdit();
+      } catch (error: any) {
+        this.alertService.addError('Error al actualizar el ingreso: ' + (error?.message || error));
       }
-    );
-    this.incomeForm.reset();
-    this.incomeEdit = undefined;
+    } else {
+      this.incomeForm.markAllAsTouched();
+    }
   }
 
   async deleteIncome(incomeID: number, name: string) {
