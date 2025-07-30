@@ -11,6 +11,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Icons } from '../../../core/constants/icons';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { InitialConfigurationService } from '../../../services/initial-configuration.service';
+import { Paths } from '../../../core/constants/paths';
 
 @Component({
   selector: 'app-payments-methods',
@@ -32,6 +34,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class PaymentsMethodsComponent {
   private readonly paymentMethodService = inject(PaymentMethodService);
   private readonly alertService = inject(AlertMessageService);
+  private readonly initialConfigService = inject(InitialConfigurationService);
 
   paymentMethods?: PaymentMethod[];
   errorMessage?: string;
@@ -47,10 +50,16 @@ export class PaymentsMethodsComponent {
 
   ngOnInit(): void {
     this.paymentMethodService.getObservable().subscribe(paymentMethods => {
+      if (paymentMethods.length === 0 && !this.initialConfigService.isDone) {
+        this.paymentMethodService.initPaymentMethods();
+        return;
+      }
       this.paymentMethods = paymentMethods;
     }, error => {
       this.errorMessage = 'Error al cargar los métodos de pago: ' + error.message;
     });
+    this.initialConfigService.nextPage = `${Paths.INIT_CONFIG}/${Paths.INCOME}`;
+    this.initialConfigService.previousPage = `${Paths.INIT_CONFIG}/${Paths.POCKETS}`;
   }
 
   @HostListener('window:touchstart', ['$event'])

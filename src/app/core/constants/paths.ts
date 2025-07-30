@@ -2,6 +2,7 @@ export const Paths = {
     WELCOME: '',
 
     MAIN: 'main',
+    INIT_CONFIG: 'init-config',
     DASH_BOARD: 'dashBoard',
     INCOME: 'incomes',
     BILLS: 'bills',

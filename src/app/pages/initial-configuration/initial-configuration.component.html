@@ -1,0 +1,20 @@
+<div class="header">
+    <div class="content">
+        <img src="img/Bolsi con fondo.svg" alt="Bolsi" width="40px" height="40px">
+        <h1 class="title-medium">Bolsi</h1>
+    </div>
+    <h1 class="text-xlarge">Configuracion inicial</h1>
+</div>
+<router-outlet/>
+<div class="footer">
+    @if (previusPage) {
+        <button class="btn-primary" id="back-button" (click)="$event.preventDefault(); goTo(previusPage);">
+            <mat-icon fontSet="material-symbols-rounded">{{Icons.BACK}}</mat-icon>
+            <span class="text-medium">Volver</span>
+        </button>
+    }
+    <button class="btn-primary" id="next-button" (click)="$event.preventDefault(); goTo(nextPage);">
+        <span class="text-medium">Siguiente</span>
+        <mat-icon fontSet="material-symbols-rounded">{{Icons.NEXT}}</mat-icon>
+    </button>
+</div>

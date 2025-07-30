@@ -13,6 +13,8 @@ import { AlertMessageService } from '../../../services/alert-message.service';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 import { Icons } from '../../../core/constants/icons';
 import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
+import { InitialConfigurationService } from '../../../services/initial-configuration.service';
+import { Paths } from '../../../core/constants/paths';
 
 @Component({
   selector: 'app-income',
@@ -34,6 +36,7 @@ import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 export class IncomeComponent implements OnInit, UnsaveChanges {
   private readonly incomeService = inject(IncomeService);
   private readonly alertService = inject(AlertMessageService);
+  private readonly initialConfigService = inject(InitialConfigurationService);
 
   incomes?: IncomeViewData;
   errorMessage?: string;;
@@ -50,9 +53,16 @@ export class IncomeComponent implements OnInit, UnsaveChanges {
   ngOnInit(): void {
     this.incomeService.getViewDataObservable().subscribe(incomes => {
       this.incomes = incomes;
+      if (incomes.incomeTotal !== 0 && !this.initialConfigService.isDone) {
+        this.initialConfigService.setConfigDone(true);
+      } else if (incomes.incomeTotal === 0 && this.initialConfigService.isDone) {
+        this.initialConfigService.setConfigDone(false);
+      }
     }, error => {
       this.errorMessage = 'Error al cargar los ingresos: ' + error.message;
     });
+    this.initialConfigService.nextPage = `${Paths.INIT_CONFIG}/${Paths.BILLS}`;
+    this.initialConfigService.previousPage = `${Paths.INIT_CONFIG}/${Paths.PAYMENT_METHODS}`;
   }
 
   @HostListener('window:touchstart', ['$event'])

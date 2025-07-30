@@ -23,5 +23,7 @@ export const Icons = {
     BILLS: 'payment',
     PAYMENT_METHOD: 'account_balance_wallet',
     QUICK_SHOPPING: 'shopping_bag_speed',
+    BACK: 'chevron_left',
+    NEXT: 'chevron_right',
 
 }

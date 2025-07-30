@@ -10,6 +10,8 @@ import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 import { AlertMessageService } from '../../../services/alert-message.service';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 import { Icons } from '../../../core/constants/icons';
+import { InitialConfigurationService } from '../../../services/initial-configuration.service';
+import { Paths } from '../../../core/constants/paths';
 
 @Component({
   selector: 'app-pockets',
@@ -31,6 +33,7 @@ import { Icons } from '../../../core/constants/icons';
 export class PocketsComponent implements OnInit, UnsaveChanges {
   private readonly pocketService = inject(PocketService);
   private readonly alertService = inject(AlertMessageService);
+  private readonly initialConfigService = inject(InitialConfigurationService);
 
   totalPercent = 0;
   pocketEdit?: HTMLDivElement;
@@ -52,6 +55,10 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
 
   ngOnInit(): void {
     this.pocketService.getObservable().subscribe(pockets => {
+      if (pockets.length === 0 && !this.initialConfigService.isDone) {
+        this.pocketService.initPockets();
+        return;
+      }
       try {
         this.arrayPocketForm.clear();
         this.totalPercent = 0;
@@ -71,6 +78,8 @@ export class PocketsComponent implements OnInit, UnsaveChanges {
       this.errorMessage = 'Error al cargar los bolsillos: ' + error.message;
       this.totalPercent = 100;
     });
+    this.initialConfigService.previousPage = '';
+    this.initialConfigService.nextPage = `${Paths.INIT_CONFIG}/${Paths.PAYMENT_METHODS}`;
   }
 
   hasUnsaveChanges(): boolean {
