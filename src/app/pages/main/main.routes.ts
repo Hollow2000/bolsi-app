@@ -13,7 +13,8 @@ export const mainRoutes: Routes = [
     },
     {
         path: Paths.INCOME,
-        loadComponent: () => import('./income/income.component').then(c => c.IncomeComponent)
+        loadComponent: () => import('./income/income.component').then(c => c.IncomeComponent),
+        canDeactivate: [UnsaveChangesGuard]
     },
     {
         path: Paths.PAYMENT_METHODS,

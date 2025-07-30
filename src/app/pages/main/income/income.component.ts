@@ -12,6 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 import { AlertMessageService } from '../../../services/alert-message.service';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 import { Icons } from '../../../core/constants/icons';
+import { UnsaveChanges } from '../../../core/guards/unsave-changes.guard';
 
 @Component({
   selector: 'app-income',
@@ -30,7 +31,7 @@ import { Icons } from '../../../core/constants/icons';
     ])
   ]
 })
-export class IncomeComponent implements OnInit {
+export class IncomeComponent implements OnInit, UnsaveChanges {
   private readonly incomeService = inject(IncomeService);
   private readonly alertService = inject(AlertMessageService);
 
@@ -59,6 +60,15 @@ export class IncomeComponent implements OnInit {
   outInteraction($event: Event) {
     if (this.incomeEdit && !this.incomeEdit.contains($event.target as Element)) {
       this.cancelEdit();
+    }
+  }
+
+  hasUnsaveChanges(): boolean {
+    if (this.incomes?.incomeTotal === 0) {
+      this.alertService.addInfo('Agrega al menos un ingreso para continuar.');
+      return false;
+    } else {
+      return true;
     }
   }
 
