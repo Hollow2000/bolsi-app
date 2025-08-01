@@ -7,9 +7,9 @@
     <div class="content">
         @for (pocketForm of arrayPocketForm.controls; track pocketForm.controls.id.value) {
         <div #item class="card pocket" [class.form]="pocketEdit === item" [@animate]>
-            <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre del bolsillo"
+            <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" placeholder="Nombre del bolsillo"
                 [formControl]="pocketForm.controls.name" tabindex="1">
-            <input class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+            <input autocomplete="off" class="text-large input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
                 [formControl]="pocketForm.controls.percent" tabindex="2" maxlength="3" (input)="calculateTotal()" appPercent>
             <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deletePocket(pocketForm.value.id!, pocketForm.value.name!);">
                 <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
@@ -21,9 +21,9 @@
             <div class="card form">
                 <h3 class="title-small">Nuevo bolsillo</h3>
                 <div class="pocket">
-                    <input class="text-medium input" type="text" name="name" id="name" tabindex="100" (keydown.enter)="percent.focus()"
+                    <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" tabindex="100" (keydown.enter)="percent.focus()"
                         placeholder="Nombre del bolsillo" [formControl]="newPocketForm.controls.name">
-                    <input #percent class="text-medium input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
+                    <input autocomplete="off" #percent class="text-medium input" type="tel" name="percent" id="percent" placeholder="Porcentaje"
                         [formControl]="newPocketForm.controls.percent" tabindex="101" maxlength="3" appPercent
                         (keydown.enter)="$event.preventDefault(); submitNew(addElement)">
                 </div>

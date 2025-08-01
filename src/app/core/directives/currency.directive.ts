@@ -1,4 +1,5 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Optional, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appCurrency]'
@@ -6,7 +7,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class CurrencyDirective {
   private readonly el: HTMLInputElement;
 
-  constructor(private readonly elementRef: ElementRef) {
+  constructor(private readonly elementRef: ElementRef, 
+    @Optional() @Self() private ngControl: NgControl) {
     this.el = this.elementRef.nativeElement;
   }
 
@@ -21,6 +23,7 @@ export class CurrencyDirective {
 
     if (!cleanValue || cleanValue === '0') {
       this.el.value = '';
+      this.ngControl.control?.setValue('');
       return;
     }
 
@@ -50,6 +53,7 @@ export class CurrencyDirective {
     const selectionStart = this.el.selectionStart ?? 0;
     const beforeLength = this.el.value.length;
 
+    this.ngControl.control?.setValue(cleanValue);
     this.el.value = formattedValue;
 
     const afterLength = formattedValue.length;

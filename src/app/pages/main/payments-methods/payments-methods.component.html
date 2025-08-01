@@ -8,13 +8,35 @@
         <div #item class="card paymentMethod" [class.form]="paymentMethodEdit === item" [@animate]>
             @if (paymentMethodEdit === item) {
             <h3 class="title-small">Editar forma de pago</h3>
-            <div class="form">
-                <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"
-                    [formControl]="paymentMethodForm.controls.alias" tabindex="1" maxlength="30"
-                    (keydown.enter)="$event.preventDefault(); amount.focus()">
-                <input #amount class="text-medium input" type="tel" name="balance" id="balance" placeholder="Balance"
-                    [formControl]="paymentMethodForm.controls.type" appCurrency tabindex="2" maxlength="11"
-                    (keydown.enter)="$event.preventDefault(); submitEdit(paymentMethod.id!)">
+            <div class="form-flex">
+                @if (paymentMethod.type !== PaymentMethodType.Cash) {
+                <input autocomplete="off" class="text-medium input full-width" type="text" name="name" id="name"
+                    tabindex="1" placeholder="Nombre/Alias/Concepto" [formControl]="paymentMethodForm.controls.alias"
+                    maxlength="10">
+                <app-custom-select class="full-width" [options]="typeSelect" placeHolder="Tarjeta de debito o credito"
+                    id="type" [formControlApp]="paymentMethodForm.controls.type" />
+                }@else {
+                    <h3 class="title-small">{{paymentMethod.type}}</h3>
+                }
+                @if (paymentMethod.type === PaymentMethodType.Credit) {
+                <div class="form-grid">
+                    <input autocomplete="off" class="text-medium input half-width" type="tel" name="statementDay"
+                        id="statementDay" placeholder="Día de corte"
+                        [formControl]="paymentMethodForm.controls.statementDay" tabindex="3">
+                    <input autocomplete="off" class="text-medium input half-width" type="tel" name="daysToPay"
+                        id="daysToPay" placeholder="Días para pagar" [formControl]="paymentMethodForm.controls.dayToPay"
+                        tabindex="4">
+                    <input autocomplete="off" class="text-medium input half-width" type="tel" name="amountCreditLimit"
+                        id="amountCreditLimit" placeholder="Limite de credito"
+                        [formControl]="paymentMethodForm.controls.amountCreditLimit" appCurrency tabindex="5">
+                    <input autocomplete="off" class="text-medium input half-width" type="tel"
+                        name="amountCreditAvailable" id="amountCreditAvailable" placeholder="Credito disponible"
+                        [formControl]="paymentMethodForm.controls.amountCreditAvailable" appCurrency tabindex="6">
+                </div>
+                }@else {
+                <input autocomplete="off" class="text-medium input" type="tel" name="balance" id="balance"
+                    placeholder="Balance" [formControl]="paymentMethodForm.controls.balance" appCurrency tabindex="3">
+                }
             </div>
             <div class="buttons-add">
                 <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()" tabindex="3">
@@ -31,32 +53,64 @@
             </div>
             }@else {
             <div class="info">
-                <h3 class="title-small">{{paymentMethod.alias}}</h3>
-                <span class="text-large">{{paymentMethod.balance | currency}}</span>
+                <h3 class="title-small">{{paymentMethod.type}} {{paymentMethod.type !== PaymentMethodType.Cash ?
+                    paymentMethod.alias:''}}</h3>
+                @if (paymentMethod.type === PaymentMethodType.Credit) {
+                <span class="text-medium">Fecha de corte: {{paymentMethod.statementDay}}</span>
+                <span class="text-medium">Fecha de pago: {{paymentMethod.daysToPay}}</span>
+                <span class="text-medium">Credito disponible: {{paymentMethod.amountCreditAvailable | currency}}</span>
+                <span class="text-medium">Limite de credito: {{paymentMethod.amountCreditLimit | currency}}</span>
+                }@else {
+                <span class="text-medium">Disponible: {{paymentMethod.balance | currency}}</span>
+                }
             </div>
             <div class="actions">
                 <button class="btn-primary" id="edit" (click)="$event.preventDefault(); openEdit(paymentMethod,item);">
                     <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
                         color="white">{{Icons.EDIT}}</mat-icon>
                 </button>
-                <button class="btn-danger" id="delete"
-                    (click)="$event.preventDefault(); deletePaymentMethod(paymentMethod)">
-                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
-                        color="white">{{Icons.DELETE}}</mat-icon>
-                </button>
+                @if (paymentMethod.type !== PaymentMethodType.Cash) {
+                    <button class="btn-danger" id="delete"
+                        (click)="$event.preventDefault(); deletePaymentMethod(paymentMethod)">
+                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
+                            color="white">{{Icons.DELETE}}</mat-icon>
+                    </button>
+                }
             </div>
             }
         </div>
         }
-        <app-add-element label="Agregar forma de pago" #addElement (onClose)="paymentMethodForm.reset();" [@animate]>
+        <app-add-element label="Agregar forma de pago" #addElement (onClose)="paymentMethodForm.reset({type: ''});"
+            [@animate]>
             <div class="card form">
                 <h3 class="title-small">Nueva forma de pago</h3>
-                <div class="form">
-                    <input class="text-medium input" type="text" name="name" id="name" tabindex="1"
-                        (keydown.enter)="amount.focus()" placeholder="Nombre/Alias/Concepto"
-                        [formControl]="paymentMethodForm.controls.alias">
-                    <input #amount class="text-medium input" type="tel" name="balance" id="balance"
-                        placeholder="Balance" [formControl]="paymentMethodForm.controls.type" appCurrency tabindex="2">
+                <div class="form-flex">
+                    <input autocomplete="off" class="text-medium input full-width" type="text" name="name" id="name"
+                        tabindex="1" placeholder="Nombre/Alias/Concepto"
+                        [formControl]="paymentMethodForm.controls.alias" maxlength="10">
+                    <app-custom-select class="full-width" [options]="typeSelect"
+                        placeHolder="Tarjeta de debito o credito" id="type"
+                        [formControlApp]="paymentMethodForm.controls.type" />
+                    @if (typeSelected === PaymentMethodType.Credit) {
+                    <div class="form-grid">
+                        <input autocomplete="off" class="text-medium input half-width" type="tel" name="statementDay"
+                            id="statementDay" placeholder="Día de corte"
+                            [formControl]="paymentMethodForm.controls.statementDay" tabindex="3">
+                        <input autocomplete="off" class="text-medium input half-width" type="tel" name="daysToPay"
+                            id="daysToPay" placeholder="Días para pagar"
+                            [formControl]="paymentMethodForm.controls.dayToPay" tabindex="4">
+                        <input autocomplete="off" class="text-medium input half-width" type="tel"
+                            name="amountCreditLimit" id="amountCreditLimit" placeholder="Limite de credito"
+                            [formControl]="paymentMethodForm.controls.amountCreditLimit" appCurrency tabindex="5">
+                        <input autocomplete="off" class="text-medium input half-width" type="tel"
+                            name="amountCreditAvailable" id="amountCreditAvailable" placeholder="Credito disponible"
+                            [formControl]="paymentMethodForm.controls.amountCreditAvailable" appCurrency tabindex="6">
+                    </div>
+                    }@else if (typeSelected === PaymentMethodType.Debit) {
+                    <input autocomplete="off" class="text-medium input" type="tel" name="balance" id="balance"
+                        placeholder="Balance" [formControl]="paymentMethodForm.controls.balance" appCurrency
+                        tabindex="3">
+                    }
                 </div>
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">

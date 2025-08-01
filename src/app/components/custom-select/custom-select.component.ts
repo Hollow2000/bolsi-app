@@ -30,6 +30,7 @@ import { SelectOption } from '../../core/interfaces/selectOption.interface';
       -webkit-appearance: none;
       -moz-appearance: none;
       box-sizing: border-box;
+      background-color: var(--background-inputs-color);
 
       option {
         color: var(--text-color);

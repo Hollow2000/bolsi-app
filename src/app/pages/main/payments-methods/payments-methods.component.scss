@@ -46,6 +46,11 @@
     padding: 1rem;
 }
 
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
 .actions {
     display: flex;
     gap: 0.5rem;
@@ -60,11 +65,28 @@
     }
 }
 
-.form {
+.card.form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
+
+.form-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+
+    input {
+        width: 85%
+    }
+}
+
 
 .buttons-add {
     display: flex;

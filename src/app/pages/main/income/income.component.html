@@ -10,10 +10,10 @@
             @if (incomeEdit === item) {
             <h3 class="title-small">Editar ingreso menusal</h3>
             <div class="form">
-                <input class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"
+                <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"
                     [formControl]="incomeForm.controls.name" tabindex="1" maxlength="30"
                     (keydown.enter)="$event.preventDefault(); amount.focus()">
-                <input #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                <input autocomplete="off" #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
                     [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="2" maxlength="11"
                     (keydown.enter)="$event.preventDefault(); submitEdit(income.id!)">
             </div>
@@ -56,9 +56,9 @@
             <div class="card form">
                 <h3 class="title-small">Nuevo ingreso menusal</h3>
                 <div class="form">
-                    <input class="text-medium input" type="text" name="name" id="name" tabindex="1" (keydown.enter)="amount.focus()"
+                    <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" tabindex="1" (keydown.enter)="amount.focus()"
                         placeholder="Nombre/Alias/Concepto" [formControl]="incomeForm.controls.name">
-                    <input #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                    <input autocomplete="off" #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
                         [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="2">
                 </div>
                 <div class="buttons-add">
