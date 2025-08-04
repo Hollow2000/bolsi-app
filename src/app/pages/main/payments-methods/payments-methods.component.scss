@@ -87,6 +87,55 @@
     }
 }
 
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+        margin-left: -2rem;
+        cursor: pointer;
+    }
+
+    .icon-info {
+        --icon-size: 20px;
+        font-size: var(--icon-size);
+        width: var(--icon-size);
+        height: var(--icon-size);
+        color: var(--text-color);
+    }
+
+    .tooltip-text {
+        visibility: hidden;
+        background-color: #333;
+        color: #fff;
+        text-align: left;
+        border-radius: 4px;
+        padding: 6px 8px;
+        position: absolute;
+        bottom: 125%;
+        /* coloca el tooltip arriba del icono */
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        min-width: 100px;
+        max-width: 300px;
+        opacity: 0;
+        text-wrap: wrap;
+        transition: opacity 0.2s, visibility 0.2s;
+        z-index: 10;
+    }
+
+    .tooltip-container:hover .tooltip-text,
+    .tooltip-container:focus-within .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
 
 .buttons-add {
     display: flex;

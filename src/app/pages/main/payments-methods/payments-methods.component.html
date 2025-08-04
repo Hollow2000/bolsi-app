@@ -16,7 +16,7 @@
                 <app-custom-select class="full-width" [options]="typeSelect" placeHolder="Tarjeta de debito o credito"
                     id="type" [formControlApp]="paymentMethodForm.controls.type" />
                 }@else {
-                    <h3 class="title-small">{{paymentMethod.type}}</h3>
+                <h3 class="title-small">{{paymentMethod.type}}</h3>
                 }
                 @if (paymentMethod.type === PaymentMethodType.Credit) {
                 <div class="form-grid">
@@ -70,11 +70,11 @@
                         color="white">{{Icons.EDIT}}</mat-icon>
                 </button>
                 @if (paymentMethod.type !== PaymentMethodType.Cash) {
-                    <button class="btn-danger" id="delete"
-                        (click)="$event.preventDefault(); deletePaymentMethod(paymentMethod)">
-                        <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
-                            color="white">{{Icons.DELETE}}</mat-icon>
-                    </button>
+                <button class="btn-danger" id="delete"
+                    (click)="$event.preventDefault(); deletePaymentMethod(paymentMethod)">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
+                        color="white">{{Icons.DELETE}}</mat-icon>
+                </button>
                 }
             </div>
             }
@@ -93,12 +93,26 @@
                         [formControlApp]="paymentMethodForm.controls.type" />
                     @if (typeSelected === PaymentMethodType.Credit) {
                     <div class="form-grid">
-                        <input autocomplete="off" class="text-medium input half-width" type="tel" name="statementDay"
-                            id="statementDay" placeholder="Día de corte"
-                            [formControl]="paymentMethodForm.controls.statementDay" tabindex="3">
-                        <input autocomplete="off" class="text-medium input half-width" type="tel" name="daysToPay"
-                            id="daysToPay" placeholder="Días para pagar"
-                            [formControl]="paymentMethodForm.controls.dayToPay" tabindex="4">
+                        <div class="input-wrapper">
+                            <input autocomplete="off" class="text-medium input half-width" type="tel"
+                                name="statementDay" id="statementDay" placeholder="Día de corte"
+                                [formControl]="paymentMethodForm.controls.statementDay" tabindex="3">
+                            <div class="tooltip-container">
+                                <mat-icon class="icon-info" fontSet="material-symbols-rounded">{{ Icons.HELP
+                                    }}</mat-icon>
+                                <span class="tooltip-text">Día del mes en que se hace el corte</span>
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <input autocomplete="off" class="text-medium input half-width" type="tel" name="daysToPay"
+                                id="daysToPay" placeholder="Días para pagar"
+                                [formControl]="paymentMethodForm.controls.dayToPay" tabindex="4">
+                            <div class="tooltip-container">
+                                <mat-icon class="icon-info" fontSet="material-symbols-rounded">{{ Icons.HELP
+                                    }}</mat-icon>
+                                <span class="tooltip-text">Número de días después del corte para realizar el pago</span>
+                            </div>
+                        </div>
                         <input autocomplete="off" class="text-medium input half-width" type="tel"
                             name="amountCreditLimit" id="amountCreditLimit" placeholder="Limite de credito"
                             [formControl]="paymentMethodForm.controls.amountCreditLimit" appCurrency tabindex="5">

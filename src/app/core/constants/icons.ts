@@ -26,4 +26,7 @@ export const Icons = {
     BACK: 'chevron_left',
     NEXT: 'chevron_right',
 
+    //Others Icons
+    HELP: 'help'
+
 }
