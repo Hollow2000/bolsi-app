@@ -59,7 +59,7 @@
                     <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" tabindex="1" (keydown.enter)="amount.focus()"
                         placeholder="Nombre/Alias/Concepto" [formControl]="incomeForm.controls.name">
                     <input autocomplete="off" #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
-                        [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="2">
+                        [formControl]="incomeForm.controls.amountEstimated" appCurrency tabindex="2" (keydown.enter)="$event.preventDefault(); submitNew(addElement)">
                 </div>
                 <div class="buttons-add">
                     <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">

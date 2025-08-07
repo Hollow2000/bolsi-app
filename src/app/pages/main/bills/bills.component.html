@@ -1,1 +1,77 @@
-<p>bills works!</p>
+@if (bills && !errorMessage) {
+<div class="header">
+    <h2 class="title-large">Gastos</h2>
+</div>
+<div class="scroll" #scroll>
+    <div class="content">
+        @for (bill of bills; track bill.id) {
+        <div #item class="card bill" [class.form]="billEdit === item" [@animate]>
+            @if (billEdit === item) {
+            <h3 class="title-small">Editar gasto menusal</h3>
+            <div class="form">
+                <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" placeholder="Nombre/Alias/Concepto"
+                    [formControl]="billForm.controls.description" tabindex="1" maxlength="30"
+                    (keydown.enter)="$event.preventDefault(); amount.focus()">
+                <input autocomplete="off" #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                    [formControl]="billForm.controls.amountEstimated" appCurrency tabindex="2" maxlength="11"
+                    (keydown.enter)="$event.preventDefault(); submitEdit(bill.id!)">
+            </div>
+            <div class="buttons-add">
+                <button class="btn-danger" (click)="$event.preventDefault(); cancelEdit()" tabindex="3">
+                    Cancelar
+                    <mat-icon fontSet="material-symbols-rounded"
+                        style="font-size: 24px; color: white;">{{Icons.CANCEL}}</mat-icon>
+                </button>
+                <button class="btn-success" (click)="$event.preventDefault(); submitEdit(bill.id!)" tabindex="4">
+                    Confirmar
+                    <mat-icon fontSet="material-symbols-rounded"
+                        style="font-size: 24px; color: white;">{{Icons.CONFIRM}}</mat-icon>
+                </button>
+            </div>
+            }@else {
+            <div class="info">
+                <h3 class="title-small">{{bill.description}}</h3>
+                <span class="text-large">{{bill.amountEstimated | currency}}</span>
+            </div>
+            <div class="actions">
+                <button class="btn-primary" id="edit" (click)="$event.preventDefault(); openEdit(bill,item);">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;" color="white">{{Icons.EDIT}}</mat-icon>
+                </button>
+                <button class="btn-danger" id="delete" (click)="$event.preventDefault(); deleteBill(bill.id!, bill.description);">
+                    <mat-icon fontSet="material-symbols-rounded" style="font-size: 24px;"
+                        color="white">{{Icons.DELETE}}</mat-icon>
+                </button>
+            </div>
+            }
+        </div>
+        }
+        <app-add-element label="Agregar gasto" #addElement (onClose)="billForm.reset();" [@animate]>
+            <div class="card form">
+                <h3 class="title-small">Nuevo gasto</h3>
+                <div class="form">
+                    <input autocomplete="off" class="text-medium input" type="text" name="name" id="name" tabindex="1" (keydown.enter)="amount.focus()"
+                        placeholder="Nombre/Alias/Concepto" [formControl]="billForm.controls.description">
+                    <input autocomplete="off" #amount class="text-medium input" type="tel" name="amount" id="amount" placeholder="Cantidad"
+                        [formControl]="billForm.controls.amountEstimated" appCurrency tabindex="2">
+                </div>
+                <div class="buttons-add">
+                    <button class="btn-danger" (click)="$event.preventDefault(); cancelNew(addElement)">
+                        Cancelar
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">{{Icons.CANCEL}}</mat-icon>
+                    </button>
+                    <button class="btn-success" (click)="$event.preventDefault(); submitNew(addElement)">
+                        Confirmar
+                        <mat-icon fontSet="material-symbols-rounded"
+                            style="font-size: 24px; color: white;">{{Icons.CONFIRM}}</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </app-add-element>
+    </div>
+</div>
+}@else {
+<div>
+    <h1 class="title-xlarge">{{errorMessage}}</h1>
+</div>
+}
