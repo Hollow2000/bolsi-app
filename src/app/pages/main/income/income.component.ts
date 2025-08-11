@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { IncomeService } from '../../../services/income.service';
-import { IncomeViewData } from '../../../core/interfaces/incomeViewData.interface';
+import { IncomeViewData } from '../../../core/interfaces/viewData.interface';
 import { CurrencyPipe } from '@angular/common';
 import { AddElementComponent } from "../../../components/add-element/add-element.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -104,7 +104,7 @@ export class IncomeComponent implements OnInit, UnsaveChanges {
     this.incomeEdit = item;
     this.incomeForm.patchValue({
       name: income.name,
-      amountEstimated: income.amountEstimated.toLocaleString("es-MX", { style: "currency", currency: "MXN" })
+      amountEstimated: Utils.transformCurrencyFormat(income.amountEstimated)
     });
     setTimeout(() => {
       requestAnimationFrame(() => {

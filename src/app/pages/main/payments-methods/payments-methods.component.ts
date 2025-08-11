@@ -128,9 +128,9 @@ export class PaymentsMethodsComponent {
       type: this.typeSelect.find(option => option.text === paymentMethod.type)?.key || 'Cash',
       statementDay: paymentMethod.statementDay ?? null,
       dayToPay: paymentMethod.daysToPay ?? null,
-      amountCreditLimit: paymentMethod.amountCreditLimit ? paymentMethod.amountCreditLimit.toLocaleString("es-MX", { style: "currency", currency: "MXN" }) : null,
-      amountCreditAvailable: paymentMethod.amountCreditAvailable ? paymentMethod.amountCreditAvailable.toLocaleString("es-MX", { style: "currency", currency: "MXN" }) : null,
-      balance: paymentMethod.balance ? paymentMethod.balance.toLocaleString("es-MX", { style: "currency", currency: "MXN" }) : null
+      amountCreditLimit: paymentMethod.amountCreditLimit ? Utils.transformCurrencyFormat(paymentMethod.amountCreditLimit) : null,
+      amountCreditAvailable: paymentMethod.amountCreditAvailable ? Utils.transformCurrencyFormat(paymentMethod.amountCreditAvailable) : null,
+      balance: paymentMethod.balance ? Utils.transformCurrencyFormat(paymentMethod.balance) : null
     });
     console.log(paymentMethod);
     console.log(this.paymentMethodForm.value);

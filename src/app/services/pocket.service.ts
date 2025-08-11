@@ -12,15 +12,15 @@ export class PocketService extends BaseService<Pocket> {
   initPockets() {
     return this.table.bulkAdd([
       {
-        name: 'Necesidades',
+        name: 'Necesidades🏠',
         percentEstimated: 50
       },
       {
-        name: 'Gustos',
+        name: 'Gustos🍿',
         percentEstimated: 30
       },
       {
-        name: 'Ahorro',
+        name: 'Ahorro💰',
         percentEstimated: 20
       }
     ]);

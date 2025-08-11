@@ -14,10 +14,17 @@ import { CurrencyDirective } from '../../../core/directives/currency.directive';
 import { Utils } from '../../../core/Utils';
 import { AlertResponseEnum } from '../../../components/alert-message/alert-message.component';
 import { Frecuency } from '../../../core/enums/frecuency.enum';
+import { SelectOption } from '../../../core/interfaces/selectOption.interface';
+import { CustomSelectComponent } from '../../../components/custom-select/custom-select.component';
+import { PocketService } from '../../../services/pocket.service';
+import { BillsGroup } from '../../../core/interfaces/viewData.interface';
 
 @Component({
   selector: 'app-bills',
-  imports: [AddElementComponent, MatIcon, ReactiveFormsModule, CurrencyPipe, CurrencyDirective],
+  imports: [
+    AddElementComponent, MatIcon, ReactiveFormsModule, CurrencyPipe,
+    CurrencyDirective, CustomSelectComponent
+  ],
   templateUrl: './bills.component.html',
   styleUrl: './bills.component.scss',
   animations: [
@@ -35,26 +42,48 @@ import { Frecuency } from '../../../core/enums/frecuency.enum';
 export class BillsComponent implements OnInit {
   private readonly initialConfigService = inject(InitialConfigurationService);
   private readonly alertService = inject(AlertMessageService);
-  private readonly billService = inject(BillService)
+  private readonly billService = inject(BillService);
+  private readonly pocketService = inject(PocketService);
 
-  bills?: Bill[];
+  billsGroups?: BillsGroup[];
   billEdit?: HTMLDivElement;
   errorMessage?: string;
   billForm = new FormGroup({
     description: new FormControl<string | null>(null, [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     amountEstimated: new FormControl<string | null>(null, [Validators.required, Validators.maxLength(11)]),
+    frecueny: new FormControl<string>('', [Validators.required])
   });
 
   get Icons() {
     return Icons;
   }
 
-  ngOnInit(): void {
-    this.billService.getObservable().subscribe(bills => {
-      this.bills = bills
+  frecuencySelect?: SelectOption[];
+  pocketsSelect?: SelectOption[];
+  get Frecuency() {
+    return Frecuency;
+  }
+  get frecuencySelected(): Frecuency {
+    return Frecuency[this.billForm.value.frecueny! as keyof typeof Frecuency]
+  }
+
+
+  async ngOnInit(): Promise<void> {
+    this.billService.getBillsGroupList$().subscribe(billsGroups => {
+      this.billsGroups = billsGroups
     }, error => {
       this.errorMessage = `Error al cargar los gastos: ${error.message}`
     });
+    this.frecuencySelect = Object.keys(Frecuency)
+      .map(key => {
+        return {
+          key,
+          text: Frecuency[key as keyof typeof Frecuency]
+        }
+      });
+    this.pocketsSelect = await (await this.pocketService.getList()).map(pocket => {
+      return { text: pocket.name, key: pocket.id };
+    })
     this.initialConfigService.nextPage = `${Paths.INIT_CONFIG}/${Paths.QUICK_SHOPPING}`;
     this.initialConfigService.previousPage = `${Paths.INIT_CONFIG}/${Paths.INCOME}`;
   }
@@ -67,15 +96,15 @@ export class BillsComponent implements OnInit {
     }
   }
 
-  async submitNew(addElement: AddElementComponent) {
+  async submitNew(addElement: AddElementComponent, pocketId: number) {
     if (this.billForm.valid) {
       await this.billService.add({
         description: this.billForm.value.description!,
         amountEstimated: Utils.clearNumberFormat(this.billForm.value.amountEstimated!),
-        frecuency: Frecuency.Biweekly,
-        pocketId: 1
+        frecuency: this.frecuencySelected,
+        pocketId
       });
-      this.billForm.reset();
+      this.billForm.reset({ frecueny: '' });
       addElement.writing = false;
     } else {
       this.billForm.markAllAsTouched();
@@ -83,7 +112,7 @@ export class BillsComponent implements OnInit {
   }
 
   cancelNew(addElement: AddElementComponent) {
-    this.billForm.reset();
+    this.billForm.reset({ frecueny: '' });
     addElement.writing = false
   }
 
@@ -91,7 +120,8 @@ export class BillsComponent implements OnInit {
     this.billEdit = item;
     this.billForm.patchValue({
       description: bill.description,
-      amountEstimated: bill.amountEstimated.toLocaleString("es-MX", { style: "currency", currency: "MXN" })
+      amountEstimated: Utils.transformCurrencyFormat(bill.amountEstimated),
+      frecueny: this.frecuencySelect?.find(option => option.text === bill.frecuency)?.key || ''
     });
     setTimeout(() => {
       requestAnimationFrame(() => {
@@ -102,16 +132,18 @@ export class BillsComponent implements OnInit {
   }
 
   cancelEdit() {
-    this.billForm.reset();
+    this.billForm.reset({ frecueny: ''});
     this.billEdit = undefined;
   }
 
-  async submitEdit(incomeId: number) {
+  async submitEdit(incomeId: number, pocketId: number) {
     if (this.billForm.valid) {
       try {
         await this.billService.update(incomeId, {
           description: this.billForm.value.description!,
           amountEstimated: Utils.clearNumberFormat(this.billForm.value.amountEstimated!),
+          frecuency: this.frecuencySelected,
+          pocketId
         });
         this.cancelEdit();
       } catch (error: any) {

@@ -18,8 +18,9 @@ import { SelectOption } from '../../core/interfaces/selectOption.interface';
     :host {
       position: relative;
     }
-
+    
     .custom-select {
+      cursor: pointer;
       padding: 0.8rem;
       border: none;
       border-radius: 20px;
