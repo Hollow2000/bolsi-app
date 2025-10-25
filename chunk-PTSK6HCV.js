@@ -1,0 +1,1 @@
+import{J as n}from"./chunk-6WEJXUXI.js";var o=class e{canDeactivate(a){return a.hasUnsaveChanges?a.hasUnsaveChanges():!0}static \u0275fac=function(t){return new(t||e)};static \u0275prov=n({token:e,factory:e.\u0275fac,providedIn:"root"})};export{o as a};

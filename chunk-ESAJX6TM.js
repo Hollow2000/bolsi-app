@@ -1,0 +1,1 @@
+import{Ja as p,ab as o,bb as t,ob as i}from"./chunk-6WEJXUXI.js";import"./chunk-EQDQRRRY.js";var s=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=p({type:n,selectors:[["app-shopping"]],decls:2,vars:0,template:function(e,m){e&1&&(o(0,"p"),i(1,"shopping works!"),t())},encapsulation:2})};export{s as ShoppingComponent};
