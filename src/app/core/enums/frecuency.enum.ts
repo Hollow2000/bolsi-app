@@ -3,5 +3,6 @@ export enum Frecuency {
     Monthly = 'Mensual',
     Biweekly = 'Quincenal',
     Weekly = 'Semanal',
-    Daily = 'Diario'
+    Daily = 'Diario',
+    Yearly = 'Anual'
 }
